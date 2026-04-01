@@ -8,8 +8,7 @@ import { viewportOnce } from "./motion-utils";
 export function Footer() {
   return (
     <motion.footer
-      className="section-dark py-14"
-      style={{ background: "var(--dark-bg)" }}
+      className="py-14 bg-secondary/40"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={viewportOnce}
@@ -22,30 +21,30 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gold/15">
                 <Building2 className="h-4 w-4 text-gold" />
               </div>
-              <span className="font-heading text-base font-bold" style={{ color: "var(--dark-text)" }}>
+              <span className="font-heading text-base font-bold text-primary">
                 entre-brokers
               </span>
             </div>
-            <p className="mt-2 text-sm" style={{ color: "var(--dark-text-subtle)" }}>
+            <p className="mt-2 text-sm text-muted-foreground">
               La red privada de oportunidades inmobiliarias
             </p>
           </div>
 
-          <div className="flex items-center gap-8 text-sm" style={{ color: "var(--dark-text-subtle)" }}>
-            <Link href="/terminos" className="hover:text-white transition-colors">
+          <div className="flex items-center gap-8 text-sm text-muted-foreground">
+            <Link href="/terminos" className="hover:text-foreground transition-colors">
               Términos
             </Link>
-            <Link href="/privacidad" className="hover:text-white transition-colors">
+            <Link href="/privacidad" className="hover:text-foreground transition-colors">
               Privacidad
             </Link>
-            <a href="mailto:contacto@entre-brokers.com" className="hover:text-white transition-colors">
+            <a href="mailto:contacto@entre-brokers.com" className="hover:text-foreground transition-colors">
               Contacto
             </a>
           </div>
         </div>
 
-        <div className="mt-10 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="text-center text-xs" style={{ color: "var(--dark-text-subtle)" }}>
+        <div className="mt-10 pt-8">
+          <p className="text-center text-xs text-muted-foreground">
             © 2026 entre-brokers. Todos los derechos reservados.
           </p>
         </div>

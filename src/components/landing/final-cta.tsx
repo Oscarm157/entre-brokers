@@ -22,10 +22,10 @@ const fadeUp = {
 
 export function FinalCTA() {
   return (
-    <section className="section-dark relative py-24 md:py-36 overflow-hidden bg-dark-gradient">
-      <div className="absolute inset-0 bg-glow-gold" />
-      <div className="absolute inset-0 bg-grid-dark opacity-30" />
-      <div className="absolute top-10 left-10 h-[250px] w-[250px] rounded-full bg-gold/[0.05] blur-[120px]" />
+    <section className="relative py-24 md:py-36 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 via-background to-teal-50/30" />
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute top-10 left-10 h-[250px] w-[250px] rounded-full bg-gold/[0.06] blur-[120px]" />
       <div className="absolute bottom-10 right-10 h-[200px] w-[200px] rounded-full bg-[#6366f1]/[0.04] blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
@@ -38,15 +38,13 @@ export function FinalCTA() {
         >
           <motion.h2
             variants={fadeUp}
-            className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl tracking-tight"
-            style={{ color: "var(--dark-text)" }}
+            className="font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl tracking-tight"
           >
             ¿Listo para cerrar más tratos?
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="mt-5 text-lg"
-            style={{ color: "var(--dark-text-muted)" }}
+            className="mt-5 text-lg text-muted-foreground"
           >
             Únete a la red de brokers que ya están conectando oportunidades reales.
           </motion.p>
@@ -67,8 +65,7 @@ export function FinalCTA() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-5 text-sm"
-            style={{ color: "var(--dark-text-subtle)" }}
+            className="mt-5 text-sm text-muted-foreground"
           >
             Sin tarjeta de crédito · Acceso inmediato · Solo para profesionales
           </motion.p>

@@ -102,28 +102,7 @@
   --sidebar-ring: #d4a843;
 }
 
-/* ══════════ DARK SECTION TOKENS ══════════ */
-/* Used by hero and final CTA for dark backgrounds */
-.section-dark {
-  --dark-bg: #0a0f1c;
-  --dark-bg-elevated: #111827;
-  --dark-surface: rgba(255, 255, 255, 0.05);
-  --dark-surface-hover: rgba(255, 255, 255, 0.08);
-  --dark-border: rgba(255, 255, 255, 0.08);
-  --dark-text: #f1f5f9;
-  --dark-text-muted: #94a3b8;
-  --dark-text-subtle: #64748b;
-}
-
 /* ══════════ UTILITY CLASSES ══════════ */
-
-/* Subtle grid for dark backgrounds */
-.bg-grid-dark {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
 
 /* Subtle grid for light backgrounds */
 .bg-grid {
@@ -152,13 +131,6 @@
   -webkit-backdrop-filter: blur(20px) saturate(1.8);
 }
 
-/* Premium glass — dark */
-.glass-dark {
-  background: rgba(10, 15, 28, 0.7);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-}
-
 /* ══════════ PREMIUM SHADOWS ══════════ */
 .shadow-card {
   box-shadow:
@@ -175,24 +147,14 @@
     0 4px 20px rgba(212, 168, 67, 0.25),
     0 1px 4px rgba(212, 168, 67, 0.15);
 }
-.shadow-dark-card {
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.4),
-    0 16px 48px rgba(0, 0, 0, 0.2);
-}
-
 /* ══════════ PREMIUM GRADIENTS ══════════ */
 .bg-gold-gradient {
   background: linear-gradient(135deg, #d4a843 0%, #c4922e 100%);
 }
 
-.bg-dark-gradient {
-  background: linear-gradient(180deg, #0a0f1c 0%, #111827 100%);
-}
-
-/* Radial glow for dark hero */
-.bg-glow-gold {
-  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(212, 168, 67, 0.08) 0%, transparent 70%);
+/* Warm hero gradient for light mode */
+.bg-warm-gradient {
+  background: linear-gradient(180deg, #f5f0e8 0%, var(--background) 100%);
 }
 
 /* Animated gradient text */
@@ -235,20 +197,6 @@
 .match-gray {
   background: rgba(0,0,0,0.04);
   border: 2px solid #c6c6cd;
-}
-
-/* Dark variant match rings */
-.match-gold-dark {
-  background: linear-gradient(135deg, rgba(212,168,67,0.2), rgba(196,146,46,0.12));
-  border: 2px solid rgba(212,168,67,0.6);
-}
-.match-teal-dark {
-  background: linear-gradient(135deg, rgba(12,148,136,0.15), rgba(107,216,203,0.1));
-  border: 2px solid rgba(12,148,136,0.5);
-}
-.match-blue-dark {
-  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(129,140,248,0.1));
-  border: 2px solid rgba(99,102,241,0.4);
 }
 
 @keyframes match-pulse {
