@@ -147,25 +147,28 @@ function LoginForm() {
   return (
     <div className="flex min-h-screen">
       {/* Left side — Branding */}
-      <div className="hidden w-1/2 flex-col justify-between bg-primary p-12 lg:flex">
-        <div>
+      <div className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-amber-50 via-white to-teal-50 p-12 lg:flex relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-30" />
+        <div className="relative">
           <Link href="/" className="flex items-center gap-2">
-            <Building2 className="h-7 w-7 text-gold" />
-            <span className="font-heading text-xl font-bold">entre-brokers</span>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold/20">
+              <Building2 className="h-5 w-5 text-gold-foreground" />
+            </div>
+            <span className="font-heading text-xl font-bold text-primary">entre-brokers</span>
           </Link>
         </div>
 
-        <div>
-          <h2 className="font-heading text-3xl font-bold leading-tight">
+        <div className="relative">
+          <h2 className="font-heading text-3xl font-bold leading-tight text-primary">
             Donde las oportunidades encuentran al broker correcto.
           </h2>
-          <p className="mt-4 text-sm text-foreground/60 leading-relaxed">
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
             La red privada de brokers inmobiliarios más eficiente de México.
             Publica solicitudes, recibe ofertas reales y cierra tratos más rápido.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-foreground/40">
+        <div className="relative flex items-center gap-2 text-xs text-muted-foreground">
           <div className="h-2 w-2 rounded-full bg-success" />
           <span>Plataforma activa — Solo para brokers verificados</span>
         </div>
@@ -187,7 +190,7 @@ function LoginForm() {
             </div>
           )}
           {success && (
-            <div className="mb-4 rounded-lg border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
+            <div className="mb-4 rounded-lg border border-success/30 bg-teal-50 px-4 py-3 text-sm text-success">
               {success}
             </div>
           )}
@@ -248,7 +251,7 @@ function LoginForm() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gold text-gold-foreground hover:bg-gold/90 font-semibold"
+                  className="w-full bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold"
                 >
                   {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                   Iniciar Sesión
@@ -376,7 +379,7 @@ function LoginForm() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gold text-gold-foreground hover:bg-gold/90 font-semibold"
+                  className="w-full bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold"
                 >
                   {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                   Crear Cuenta

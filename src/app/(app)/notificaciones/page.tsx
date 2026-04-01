@@ -96,9 +96,9 @@ const notifications: { date: string; items: Notification[] }[] = [
 ];
 
 const typeConfig: Record<string, { icon: typeof Target; color: string }> = {
-  match: { icon: Target, color: "text-success bg-success/10" },
+  match: { icon: Target, color: "text-success bg-teal-50" },
   unlock: { icon: Unlock, color: "text-gold bg-gold/10" },
-  response: { icon: MessageSquare, color: "text-[#60A5FA] bg-[#60A5FA]/10" },
+  response: { icon: MessageSquare, color: "text-indigo-500 bg-[#60A5FA]/10" },
   system: { icon: Bell, color: "text-muted-foreground bg-muted" },
 };
 
@@ -131,8 +131,8 @@ export default function NotificacionesPage() {
                 return (
                   <Link key={n.id} href={n.link || "#"}>
                     <Card
-                      className={`border-border/50 transition-all hover:border-gold/20 ${
-                        !n.read ? "bg-card/80" : "bg-card/30"
+                      className={`border-border transition-all hover:border-gold/20 ${
+                        !n.read ? "bg-card/80" : "bg-white"
                       }`}
                     >
                       <CardContent className="flex items-center gap-4 p-4">

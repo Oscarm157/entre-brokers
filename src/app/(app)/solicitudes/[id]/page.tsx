@@ -80,9 +80,9 @@ const respuestas = [
 ];
 
 const urgencyColors: Record<string, string> = {
-  Baja: "bg-success/20 text-success",
+  Baja: "bg-teal-50 text-success",
   Normal: "bg-warning/20 text-warning",
-  Alta: "bg-[#F97316]/20 text-[#F97316]",
+  Alta: "bg-orange-50 text-orange-500",
   Urgente: "bg-urgent/20 text-urgent",
 };
 
@@ -105,7 +105,7 @@ export default async function SolicitudDetailPage({
       </div>
 
       {/* Main solicitud card */}
-      <Card className="border-border/50 bg-card/50">
+      <Card className="border-border bg-white shadow-card">
         <CardContent className="p-6">
           <div className="flex items-start justify-between">
             <div>
@@ -118,7 +118,7 @@ export default async function SolicitudDetailPage({
               </div>
             </div>
             <Link href={`/solicitudes/${id}/responder`}>
-              <Button className="bg-gold text-gold-foreground hover:bg-gold/90 font-semibold">
+              <Button className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold">
                 Responder con una propiedad
               </Button>
             </Link>
@@ -148,7 +148,7 @@ export default async function SolicitudDetailPage({
 
           {/* Details grid */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="flex items-center gap-3 rounded-lg bg-background/50 p-3">
+            <div className="flex items-center gap-3 rounded-lg bg-secondary/50 p-3">
               <DollarSign className="h-4 w-4 text-gold" />
               <div>
                 <p className="text-xs text-muted-foreground">Presupuesto</p>
@@ -157,21 +157,21 @@ export default async function SolicitudDetailPage({
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-lg bg-background/50 p-3">
-              <Maximize2 className="h-4 w-4 text-[#60A5FA]" />
+            <div className="flex items-center gap-3 rounded-lg bg-secondary/50 p-3">
+              <Maximize2 className="h-4 w-4 text-indigo-500" />
               <div>
                 <p className="text-xs text-muted-foreground">Superficie</p>
                 <p className="text-sm font-semibold">{solicitud.min_m2} - {solicitud.max_m2} m²</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-lg bg-background/50 p-3">
-              <BedDouble className="h-4 w-4 text-[#A78BFA]" />
+            <div className="flex items-center gap-3 rounded-lg bg-secondary/50 p-3">
+              <BedDouble className="h-4 w-4 text-purple-500" />
               <div>
                 <p className="text-xs text-muted-foreground">Recámaras / Baños</p>
                 <p className="text-sm font-semibold">{solicitud.bedrooms} rec · {solicitud.bathrooms} baños</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-lg bg-background/50 p-3">
+            <div className="flex items-center gap-3 rounded-lg bg-secondary/50 p-3">
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <div>
                 <p className="text-xs text-muted-foreground">Vigencia</p>
@@ -209,10 +209,10 @@ export default async function SolicitudDetailPage({
 
         <div className="mt-4 space-y-4">
           {respuestas.map((r) => (
-            <Card key={r.id} className="border-border/50 bg-card/50">
+            <Card key={r.id} className="border-border bg-white shadow-card">
               <CardContent className="flex items-center gap-6 p-5">
                 {/* Match */}
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-success/15 ring-2 ring-success/30">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-teal-50 ">
                   <span className="font-heading text-base font-bold text-success">{r.match}%</span>
                 </div>
 
@@ -225,12 +225,12 @@ export default async function SolicitudDetailPage({
                     <span className="text-sm font-semibold">{r.broker.name}</span>
                     {r.broker.verified && <ShieldCheck className="h-3 w-3 text-success" />}
                     {r.status === "interested" && (
-                      <Badge className="bg-success/20 text-success text-xs">Interesado</Badge>
+                      <Badge className="bg-teal-50 text-success text-xs">Interesado</Badge>
                     )}
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{r.description}</p>
                   <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="text-gold font-medium">{formatCurrency(r.price)}</span>
+                    <span className="text-gold-foreground font-medium">{formatCurrency(r.price)}</span>
                     <span>{r.zone}</span>
                     <span>{r.area} m²</span>
                     <span>{r.bedrooms} rec · {r.bathrooms} baños</span>
@@ -239,7 +239,7 @@ export default async function SolicitudDetailPage({
 
                 {/* Actions */}
                 <div className="flex shrink-0 flex-col gap-2">
-                  <Button size="sm" className="bg-gold text-gold-foreground hover:bg-gold/90 text-xs font-semibold">
+                  <Button size="sm" className="bg-gold-gradient text-white hover:opacity-90 shadow-gold text-xs font-semibold">
                     <Lock className="mr-1.5 h-3 w-3" />
                     Desbloquear contacto
                   </Button>

@@ -39,7 +39,6 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  /* entre-brokers custom colors */
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-success: var(--success);
@@ -55,120 +54,102 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* entre-brokers — dark tech theme */
+/* ══════════════════════════════════════
+   entre-brokers — LIGHT FRESH THEME
+   Based on Stitch screen b08251bf
+   ══════════════════════════════════════ */
 :root {
-  --background: #0A0A14;
-  --foreground: #E4E4ED;
-  --card: rgba(255, 255, 255, 0.03);
-  --card-foreground: #E4E4ED;
-  --popover: #12121E;
-  --popover-foreground: #E4E4ED;
-  --primary: #1B3A4B;
-  --primary-foreground: #E4E4ED;
-  --secondary: #14142A;
-  --secondary-foreground: #E4E4ED;
-  --muted: #14142A;
-  --muted-foreground: #7B7B96;
-  --accent: #2D6A4F;
-  --accent-foreground: #E4E4ED;
-  --destructive: #DC2626;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: #D4A843;
+  --background: #fbf9f6;
+  --foreground: #1b1c1a;
+  --card: #ffffff;
+  --card-foreground: #1b1c1a;
+  --popover: #ffffff;
+  --popover-foreground: #1b1c1a;
+  --primary: #131b2e;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f3f0;
+  --secondary-foreground: #1b1c1a;
+  --muted: #efeeeb;
+  --muted-foreground: #76777d;
+  --accent: #0c9488;
+  --accent-foreground: #ffffff;
+  --destructive: #ba1a1a;
+  --border: #e4e2df;
+  --input: #e4e2df;
+  --ring: #fcc355;
   /* Brand */
-  --gold: #D4A843;
-  --gold-foreground: #0A0A14;
-  --success: #34D399;
-  --success-foreground: #0A0A14;
-  --warning: #FBBF24;
-  --urgent: #F87171;
-  --radius: 0.5rem;
+  --gold: #fcc355;
+  --gold-foreground: #7d5800;
+  --success: #0c9488;
+  --success-foreground: #ffffff;
+  --warning: #f59e0b;
+  --urgent: #ef4444;
+  --radius: 0.625rem;
   /* Chart */
-  --chart-1: #D4A843;
-  --chart-2: #34D399;
-  --chart-3: #60A5FA;
-  --chart-4: #7B7B96;
-  --chart-5: #E4E4ED;
+  --chart-1: #fcc355;
+  --chart-2: #0c9488;
+  --chart-3: #6366f1;
+  --chart-4: #76777d;
+  --chart-5: #131b2e;
   /* Sidebar */
-  --sidebar: #08080F;
-  --sidebar-foreground: #E4E4ED;
-  --sidebar-primary: #D4A843;
-  --sidebar-primary-foreground: #0A0A14;
-  --sidebar-accent: rgba(255, 255, 255, 0.04);
-  --sidebar-accent-foreground: #E4E4ED;
-  --sidebar-border: rgba(255, 255, 255, 0.05);
-  --sidebar-ring: #D4A843;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1b1c1a;
+  --sidebar-primary: #fcc355;
+  --sidebar-primary-foreground: #7d5800;
+  --sidebar-accent: #fef9ee;
+  --sidebar-accent-foreground: #1b1c1a;
+  --sidebar-border: #efeeeb;
+  --sidebar-ring: #fcc355;
 }
 
-/* ---- Tech grid background ---- */
+/* ══════════ UTILITY CLASSES ══════════ */
+
+/* Subtle grid for tech feel on light backgrounds */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 .bg-grid-sm {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-/* Glow effects */
-.glow-gold {
-  box-shadow: 0 0 20px rgba(212, 168, 67, 0.15), 0 0 60px rgba(212, 168, 67, 0.05);
+/* Glass effect for navbar */
+.glass {
+  background: rgba(251, 249, 246, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
-.glow-success {
-  box-shadow: 0 0 20px rgba(52, 211, 153, 0.15), 0 0 60px rgba(52, 211, 153, 0.05);
+/* Card shadow (editorial style from Stitch) */
+.shadow-card {
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+.shadow-card-hover {
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), 0 12px 40px rgba(15, 23, 42, 0.04);
+}
+.shadow-gold {
+  box-shadow: 0 4px 16px rgba(252, 195, 85, 0.2), 0 1px 4px rgba(252, 195, 85, 0.1);
 }
 
-.glow-blue {
-  box-shadow: 0 0 20px rgba(96, 165, 250, 0.15), 0 0 60px rgba(96, 165, 250, 0.05);
+/* Gold gradient (from Stitch) */
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #fcc355 0%, #fda92e 100%);
 }
 
-/* Gradient border */
-.border-gradient {
-  position: relative;
-}
-.border-gradient::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(212, 168, 67, 0.3), rgba(52, 211, 153, 0.1), rgba(96, 165, 250, 0.1));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Scanline overlay */
-.scanlines::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
-  pointer-events: none;
-}
-
-/* Animated gradient text */
+/* Animated gradient text — light mode friendly */
 .text-gradient-animated {
-  background: linear-gradient(90deg, #D4A843, #34D399, #60A5FA, #D4A843);
+  background: linear-gradient(90deg, #7d5800, #0c9488, #6366f1, #7d5800);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -181,14 +162,98 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Pulse glow for match circles */
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.4), 0 0 40px rgba(52, 211, 153, 0.1); }
+/* ══════════ GAMIFICATION ══════════ */
+
+/* Match ring — circular score with level colors */
+.match-ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
 }
 
+/* Level colors by match % (applied via inline styles or classes) */
+.match-gold {
+  background: linear-gradient(135deg, rgba(252,195,85,0.15), rgba(253,169,46,0.1));
+  border: 2px solid #fcc355;
+}
+.match-teal {
+  background: linear-gradient(135deg, rgba(12,148,136,0.1), rgba(107,216,203,0.08));
+  border: 2px solid #0c9488;
+}
+.match-blue {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.08));
+  border: 2px solid #6366f1;
+}
+.match-gray {
+  background: rgba(0,0,0,0.04);
+  border: 2px solid #c6c6cd;
+}
+
+/* Pulse for high matches */
+@keyframes match-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 195, 85, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(252, 195, 85, 0); }
+}
 .match-pulse {
-  animation: pulse-glow 3s ease-in-out infinite;
+  animation: match-pulse 2.5s ease-in-out infinite;
+}
+
+/* XP bar */
+.xp-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: #efeeeb;
+  overflow: hidden;
+}
+.xp-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #fcc355, #0c9488);
+  transition: width 0.8s ease;
+}
+
+/* Level badge */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.level-gold {
+  background: linear-gradient(135deg, #fef3cd, #fde68a);
+  color: #7d5800;
+  border: 1px solid #fcc355;
+}
+.level-teal {
+  background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+  color: #065f56;
+  border: 1px solid #0c9488;
+}
+
+/* Streak fire */
+@keyframes flame {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.streak-fire {
+  animation: flame 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Confetti sparkle for high match */
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+.sparkle {
+  animation: sparkle 2s ease-in-out infinite;
 }
 
 @layer base {

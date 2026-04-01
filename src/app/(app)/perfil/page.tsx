@@ -57,7 +57,7 @@ export default function PerfilPage() {
             <div className="flex items-center gap-2">
               <h1 className="font-heading text-2xl font-bold">{profile.name}</h1>
               {profile.verified && (
-                <Badge className="bg-success/20 text-success text-xs">
+                <Badge className="bg-teal-50 text-success text-xs">
                   <ShieldCheck className="mr-1 h-3 w-3" />
                   Verificado
                 </Badge>
@@ -84,16 +84,16 @@ export default function PerfilPage() {
 
       {/* Stats */}
       <div className="mt-6 grid gap-4 sm:grid-cols-4">
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardContent className="flex items-center gap-3 p-4">
-            <FileText className="h-5 w-5 text-[#60A5FA]" />
+            <FileText className="h-5 w-5 text-indigo-500" />
             <div>
               <p className="text-xl font-bold font-heading">{profile.stats.solicitudes}</p>
               <p className="text-xs text-muted-foreground">Solicitudes</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardContent className="flex items-center gap-3 p-4">
             <MessageSquare className="h-5 w-5 text-success" />
             <div>
@@ -102,7 +102,7 @@ export default function PerfilPage() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardContent className="flex items-center gap-3 p-4">
             <Handshake className="h-5 w-5 text-gold" />
             <div>
@@ -111,7 +111,7 @@ export default function PerfilPage() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardContent className="flex items-center gap-3 p-4">
             <Star className="h-5 w-5 text-gold fill-gold" />
             <div>
@@ -124,7 +124,7 @@ export default function PerfilPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {/* Info */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Información</CardTitle>
           </CardHeader>
@@ -162,7 +162,7 @@ export default function PerfilPage() {
         </Card>
 
         {/* Reviews */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Reputación</CardTitle>
           </CardHeader>
@@ -186,7 +186,7 @@ export default function PerfilPage() {
 
             <div className="space-y-3">
               {reviews.map((r, i) => (
-                <div key={i} className="rounded-lg bg-background/50 p-3">
+                <div key={i} className="rounded-lg bg-secondary/50 p-3">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="flex gap-0.5">
                       {Array.from({ length: r.rating }).map((_, j) => (

@@ -6,39 +6,37 @@ const testimonials = [
     name: "María González",
     role: "Century 21 Polanco",
     initials: "MG",
-    quote:
-      "Cerré 3 operaciones en mi primer mes. Lo que antes tardaba semanas por WhatsApp, aquí lo resolví en días.",
+    quote: "Cerré 3 operaciones en mi primer mes. Lo que antes tardaba semanas por WhatsApp, aquí lo resolví en días.",
     stars: 5,
+    color: "bg-amber-100 text-amber-700",
   },
   {
     name: "Roberto Mendoza",
     role: "RE/MAX Guadalajara",
     initials: "RM",
-    quote:
-      "Por fin una plataforma pensada para profesionales. Sin compradores directos preguntando tonterías. Solo brokers serios.",
+    quote: "Por fin una plataforma pensada para profesionales. Sin compradores directos preguntando tonterías. Solo brokers serios.",
     stars: 5,
+    color: "bg-teal-100 text-teal-700",
   },
   {
     name: "Ana Lucía Torres",
     role: "Broker Independiente CDMX",
     initials: "AT",
-    quote:
-      "El match automático es brutal. Solo recibo propuestas que realmente cumplen lo que mi cliente busca. Ahorré horas.",
+    quote: "El match automático es brutal. Solo recibo propuestas que realmente cumplen lo que mi cliente busca. Ahorré horas.",
     stars: 5,
+    color: "bg-indigo-100 text-indigo-700",
   },
 ];
 
 export function Testimonials() {
   return (
-    <section className="relative py-20 md:py-28">
-      <div className="absolute inset-0 bg-grid opacity-15" />
-
-      <div className="relative mx-auto max-w-7xl px-6">
+    <section className="py-20 md:py-28 bg-white">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-            // Testimonios
+          <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
+            Testimonios
           </p>
-          <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">
+          <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-4xl">
             Brokers que ya conectan diferente
           </h2>
         </div>
@@ -47,26 +45,25 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="rounded-xl border border-border bg-card p-8 relative overflow-hidden"
+              className="rounded-2xl border border-border bg-white p-8 shadow-card transition-all hover:shadow-card-hover"
             >
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
               <div className="flex gap-0.5">
                 {Array.from({ length: t.stars }).map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />
+                  <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
                 ))}
               </div>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <Avatar className="h-9 w-9 border border-border">
-                  <AvatarFallback className="bg-card text-[10px] font-mono font-semibold text-gold">
+                <Avatar className="h-10 w-10">
+                  <AvatarFallback className={`text-xs font-semibold ${t.color}`}>
                     {t.initials}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-semibold">{t.name}</p>
-                  <p className="font-mono text-[10px] text-muted-foreground">{t.role}</p>
+                  <p className="text-sm font-semibold text-primary">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
                 </div>
               </div>
             </div>

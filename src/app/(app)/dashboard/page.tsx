@@ -13,9 +13,9 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
 const urgencyColors: Record<string, string> = {
-  baja: "bg-success/20 text-success",
+  baja: "bg-teal-50 text-success",
   normal: "bg-warning/20 text-warning",
-  alta: "bg-[#F97316]/20 text-[#F97316]",
+  alta: "bg-orange-50 text-orange-500",
   urgente: "bg-urgent/20 text-urgent",
 };
 
@@ -71,7 +71,7 @@ export default async function DashboardPage() {
   const firstName = profile?.full_name?.split(" ")[0] || user.email?.split("@")[0] || "Broker";
 
   const stats = [
-    { label: "Solicitudes activas", value: String(solicitudesCount || 0), icon: FileText, color: "text-[#60A5FA]" },
+    { label: "Solicitudes activas", value: String(solicitudesCount || 0), icon: FileText, color: "text-indigo-500" },
     { label: "Respuestas enviadas", value: String(respuestasCount || 0), icon: MessageSquare, color: "text-success" },
     { label: "Match promedio", value: "—", icon: Target, color: "text-success" },
     { label: "Contactos desbloqueados", value: String(unlocksCount || 0), icon: Unlock, color: "text-gold" },
@@ -87,7 +87,7 @@ export default async function DashboardPage() {
       {/* Stats */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.label} className="border-border/50 bg-card/50">
+          <Card key={stat.label} className="border-border bg-white shadow-card">
             <CardContent className="flex items-center gap-4 p-6">
               <div className={`flex h-12 w-12 items-center justify-center rounded-lg bg-muted ${stat.color}`}>
                 <stat.icon className="h-5 w-5" />
@@ -102,7 +102,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* My Solicitudes */}
-      <Card className="mt-8 border-border/50 bg-card/50">
+      <Card className="mt-8 border-border bg-white shadow-card">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="font-heading text-lg">Mis Solicitudes Activas</CardTitle>
           <Link href="/solicitudes">
@@ -116,7 +116,7 @@ export default async function DashboardPage() {
             <div className="space-y-3">
               {misSolicitudes.map((s) => (
                 <Link key={s.id} href={`/solicitudes/${s.id}`}>
-                  <div className="flex items-center justify-between rounded-lg border border-border/30 bg-background/50 p-4 hover:border-gold/20 transition-colors">
+                  <div className="flex items-center justify-between rounded-lg border border-border bg-secondary/50 p-4 hover:border-gold/20 transition-colors">
                     <div className="flex-1">
                       <p className="text-sm font-medium">{s.title}</p>
                       <div className="mt-1.5 flex items-center gap-2">
@@ -140,7 +140,7 @@ export default async function DashboardPage() {
             <div className="text-center py-8">
               <p className="text-sm text-muted-foreground">No tienes solicitudes activas aún.</p>
               <Link href="/solicitudes/nueva">
-                <Button className="mt-3 bg-gold text-gold-foreground hover:bg-gold/90 text-sm font-semibold">
+                <Button className="mt-3 bg-gold-gradient text-white hover:opacity-90 shadow-gold text-sm font-semibold">
                   Crear tu primera solicitud
                 </Button>
               </Link>
@@ -150,7 +150,7 @@ export default async function DashboardPage() {
       </Card>
 
       {/* Recent activity */}
-      <Card className="mt-8 border-border/50 bg-card/50">
+      <Card className="mt-8 border-border bg-white shadow-card">
         <CardHeader>
           <CardTitle className="font-heading text-lg">Actividad Reciente</CardTitle>
         </CardHeader>

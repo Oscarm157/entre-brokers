@@ -59,7 +59,7 @@ export default function ResponderSolicitudPage() {
 
       <div className="mt-8 space-y-6">
         {/* Propiedad info */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Tu Propiedad</CardTitle>
           </CardHeader>
@@ -113,7 +113,7 @@ export default function ResponderSolicitudPage() {
         </Card>
 
         {/* Description */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Descripción</CardTitle>
           </CardHeader>
@@ -130,12 +130,12 @@ export default function ResponderSolicitudPage() {
         </Card>
 
         {/* Photos */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Fotos</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border/50 bg-background/50 p-8">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/50 p-8">
               <Upload className="h-8 w-8 text-muted-foreground mb-3" />
               <p className="text-sm text-muted-foreground">
                 Arrastra fotos aquí o{" "}
@@ -155,7 +155,7 @@ export default function ResponderSolicitudPage() {
           <Link href="/explorar">
             <Button variant="outline">Cancelar</Button>
           </Link>
-          <Button className="bg-gold text-gold-foreground hover:bg-gold/90 font-semibold px-8">
+          <Button className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold px-8">
             Enviar Respuesta
           </Button>
         </div>

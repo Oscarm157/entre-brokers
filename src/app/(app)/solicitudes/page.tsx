@@ -6,14 +6,14 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
 const urgencyColors: Record<string, string> = {
-  baja: "bg-success/20 text-success",
+  baja: "bg-teal-50 text-success",
   normal: "bg-warning/20 text-warning",
-  alta: "bg-[#F97316]/20 text-[#F97316]",
+  alta: "bg-orange-50 text-orange-500",
   urgente: "bg-urgent/20 text-urgent",
 };
 
 const statusConfig: Record<string, { label: string; className: string }> = {
-  active: { label: "Activa", className: "bg-success/20 text-success" },
+  active: { label: "Activa", className: "bg-teal-50 text-success" },
   paused: { label: "Pausada", className: "bg-warning/20 text-warning" },
   closed: { label: "Cerrada", className: "bg-muted text-muted-foreground" },
   expired: { label: "Expirada", className: "bg-urgent/20 text-urgent" },
@@ -43,7 +43,7 @@ export default async function MisSolicitudesPage() {
           </p>
         </div>
         <Link href="/solicitudes/nueva">
-          <Button className="bg-gold text-gold-foreground hover:bg-gold/90 font-semibold">
+          <Button className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold">
             <Plus className="mr-2 h-4 w-4" />
             Nueva Solicitud
           </Button>
@@ -53,7 +53,7 @@ export default async function MisSolicitudesPage() {
       <div className="mt-8 space-y-4">
         {solicitudes && solicitudes.length > 0 ? (
           solicitudes.map((s) => (
-            <Card key={s.id} className="border-border/50 bg-card/50">
+            <Card key={s.id} className="border-border bg-white shadow-card">
               <CardContent className="p-5">
                 <div className="flex items-start justify-between">
                   <div>
@@ -78,7 +78,7 @@ export default async function MisSolicitudesPage() {
                 </div>
 
                 <div className="mt-3 flex items-center gap-6 text-xs text-muted-foreground">
-                  <span className="text-gold font-medium">
+                  <span className="text-gold-foreground font-medium">
                     {s.budget_min ? formatCurrency(s.budget_min) + " - " : ""}
                     {formatCurrency(s.budget_max)}
                   </span>
@@ -98,7 +98,7 @@ export default async function MisSolicitudesPage() {
           <div className="text-center py-16">
             <p className="text-muted-foreground">No tienes solicitudes aún.</p>
             <Link href="/solicitudes/nueva">
-              <Button className="mt-4 bg-gold text-gold-foreground hover:bg-gold/90 font-semibold">
+              <Button className="mt-4 bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold">
                 Crear tu primera solicitud
               </Button>
             </Link>

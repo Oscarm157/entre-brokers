@@ -7,9 +7,9 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
 const urgencyColors: Record<string, string> = {
-  baja: "bg-success/20 text-success",
+  baja: "bg-teal-50 text-success",
   normal: "bg-warning/20 text-warning",
-  alta: "bg-[#F97316]/20 text-[#F97316]",
+  alta: "bg-orange-50 text-orange-500",
   urgente: "bg-urgent/20 text-urgent",
 };
 
@@ -71,7 +71,7 @@ export default async function ExplorarPage() {
               .toUpperCase() || "?";
 
             return (
-              <Card key={s.id} className="border-border/50 bg-card/50 transition-all hover:border-gold/20">
+              <Card key={s.id} className="border-border bg-white shadow-card transition-all hover:border-gold/20">
                 <CardContent className="flex items-center gap-6 p-5">
                   {/* Content */}
                   <div className="flex-1 min-w-0">
@@ -86,7 +86,7 @@ export default async function ExplorarPage() {
                       <Badge variant="outline" className="text-xs">{s.zone}</Badge>
                     </div>
 
-                    <p className="mt-2 text-sm text-gold font-medium">
+                    <p className="mt-2 text-sm text-gold-foreground font-medium">
                       {s.budget_min ? formatCurrency(s.budget_min) + " - " : "Hasta "}
                       {formatCurrency(s.budget_max)}
                     </p>
@@ -113,7 +113,7 @@ export default async function ExplorarPage() {
                   {/* Actions */}
                   <div className="flex shrink-0 flex-col gap-2">
                     <Link href={`/solicitudes/${s.id}/responder`}>
-                      <Button size="sm" className="bg-gold text-gold-foreground hover:bg-gold/90 text-xs font-semibold">
+                      <Button size="sm" className="bg-gold-gradient text-white hover:opacity-90 shadow-gold text-xs font-semibold">
                         Responder
                       </Button>
                     </Link>
@@ -134,7 +134,7 @@ export default async function ExplorarPage() {
               Sé el primero en publicar una solicitud y recibe respuestas de otros brokers.
             </p>
             <Link href="/solicitudes/nueva">
-              <Button className="mt-4 bg-gold text-gold-foreground hover:bg-gold/90 font-semibold">
+              <Button className="mt-4 bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold">
                 Crear solicitud
               </Button>
             </Link>

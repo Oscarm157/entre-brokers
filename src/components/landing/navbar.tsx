@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-border bg-background/60 backdrop-blur-2xl">
+    <nav className="fixed top-0 z-50 w-full border-b border-border/50 glass">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gold/10 border border-gold/20">
-            <Building2 className="h-4 w-4 text-gold" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gold/20">
+            <Building2 className="h-4 w-4 text-gold-foreground" />
           </div>
-          <span className="font-heading text-lg font-bold tracking-tight">
+          <span className="font-heading text-lg font-bold tracking-tight text-primary">
             entre-brokers
           </span>
         </Link>
@@ -36,7 +36,7 @@ export function Navbar() {
           <Link href="/registro">
             <Button
               size="sm"
-              className="bg-gold text-gold-foreground hover:bg-gold/90 text-sm font-semibold glow-gold"
+              className="bg-gold-gradient text-white hover:opacity-90 text-sm font-semibold shadow-gold"
             >
               Solicitar Acceso
             </Button>

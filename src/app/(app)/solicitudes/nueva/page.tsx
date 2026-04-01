@@ -126,7 +126,7 @@ export default function NuevaSolicitudPage() {
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
         {/* Información General */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Información General</CardTitle>
           </CardHeader>
@@ -174,7 +174,7 @@ export default function NuevaSolicitudPage() {
         </Card>
 
         {/* Ubicación y Presupuesto */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Ubicación y Presupuesto</CardTitle>
           </CardHeader>
@@ -206,7 +206,7 @@ export default function NuevaSolicitudPage() {
         </Card>
 
         {/* Características */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Características</CardTitle>
           </CardHeader>
@@ -248,7 +248,7 @@ export default function NuevaSolicitudPage() {
         </Card>
 
         {/* Detalles adicionales */}
-        <Card className="border-border/50 bg-card/50">
+        <Card className="border-border bg-white shadow-card">
           <CardHeader>
             <CardTitle className="font-heading text-base">Detalles adicionales</CardTitle>
           </CardHeader>
@@ -288,7 +288,7 @@ export default function NuevaSolicitudPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="bg-gold text-gold-foreground hover:bg-gold/90 font-semibold px-8"
+            className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold px-8"
           >
             {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
             Publicar Solicitud

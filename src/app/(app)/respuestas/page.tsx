@@ -45,7 +45,7 @@ const misRespuestas = [
 
 const statusConfig: Record<string, { label: string; className: string }> = {
   pending: { label: "Pendiente", className: "bg-warning/20 text-warning" },
-  interested: { label: "Interesado", className: "bg-success/20 text-success" },
+  interested: { label: "Interesado", className: "bg-teal-50 text-success" },
   rejected: { label: "No relevante", className: "bg-muted text-muted-foreground" },
 };
 
@@ -59,10 +59,10 @@ export default function MisRespuestasPage() {
 
       <div className="mt-8 space-y-4">
         {misRespuestas.map((r) => (
-          <Card key={r.id} className="border-border/50 bg-card/50">
+          <Card key={r.id} className="border-border bg-white shadow-card">
             <CardContent className="flex items-center gap-6 p-5">
               {/* Match */}
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-success/15 ring-2 ring-success/30">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-teal-50 ">
                 <span className="font-heading text-base font-bold text-success">{r.match}%</span>
               </div>
 
@@ -78,7 +78,7 @@ export default function MisRespuestasPage() {
                   <Badge variant="outline" className="text-xs">{r.zone}</Badge>
                 </div>
                 <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="text-gold font-medium">{r.price}</span>
+                  <span className="text-gold-foreground font-medium">{r.price}</span>
                   <span>{r.area}</span>
                   <span>Solicitud de {r.broker}</span>
                   <div className="flex items-center gap-1">
@@ -91,7 +91,7 @@ export default function MisRespuestasPage() {
               {/* Actions */}
               <div className="flex shrink-0 gap-2">
                 {r.status === "interested" && (
-                  <Button size="sm" className="bg-gold text-gold-foreground hover:bg-gold/90 text-xs font-semibold">
+                  <Button size="sm" className="bg-gold-gradient text-white hover:opacity-90 shadow-gold text-xs font-semibold">
                     <Lock className="mr-1.5 h-3 w-3" />
                     Desbloquear
                   </Button>

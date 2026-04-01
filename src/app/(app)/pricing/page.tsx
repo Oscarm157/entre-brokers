@@ -94,7 +94,7 @@ export default function PricingPage() {
         {plans.map((plan) => (
           <Card
             key={plan.name}
-            className={`border-border/50 bg-card/50 relative ${
+            className={`border-border bg-white shadow-card relative ${
               plan.highlight ? "border-gold/50 ring-1 ring-gold/20" : ""
             }`}
           >
@@ -134,7 +134,7 @@ export default function PricingPage() {
               <Button
                 className={`w-full font-semibold ${
                   plan.highlight
-                    ? "bg-gold text-gold-foreground hover:bg-gold/90"
+                    ? "bg-gold-gradient text-white hover:opacity-90 shadow-gold"
                     : ""
                 }`}
                 variant={plan.ctaVariant}
@@ -153,7 +153,7 @@ export default function PricingPage() {
         </h2>
         <div className="space-y-4">
           {faqs.map((faq) => (
-            <div key={faq.q} className="rounded-lg border border-border/50 bg-card/50 p-4">
+            <div key={faq.q} className="rounded-lg border border-border bg-white shadow-card p-4">
               <p className="text-sm font-semibold">{faq.q}</p>
               <p className="mt-1 text-xs text-muted-foreground">{faq.a}</p>
             </div>
