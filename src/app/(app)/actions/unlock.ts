@@ -33,31 +33,8 @@ export async function checkUnlockStatus(
 
   if (!user) return { status: "error", message: "No autenticado" };
 
-  // Mock data — skip DB queries, go straight to plan check
+  // Mock data — always show payment decision screen for demo purposes
   if (!isUUID(targetBrokerId)) {
-    const { data: profile } = await supabase
-      .from("broker_profiles")
-      .select("subscription_tier")
-      .eq("id", user.id)
-      .single();
-
-    const tier = profile?.subscription_tier || "free";
-    const limit = PLAN_LIMITS[tier] ?? 1;
-
-    const startOfMonth = new Date();
-    startOfMonth.setDate(1);
-    startOfMonth.setHours(0, 0, 0, 0);
-
-    const { count } = await supabase
-      .from("unlocks")
-      .select("*", { count: "exact", head: true })
-      .eq("requester_id", user.id)
-      .gte("created_at", startOfMonth.toISOString());
-
-    const used = count ?? 0;
-    if (used < limit) {
-      return { status: "has_plan_unlocks", remaining: limit - used };
-    }
     return { status: "needs_payment", price: 99, currency: "MXN" };
   }
 
