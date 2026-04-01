@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { Building2, Mail, Lock, Eye, EyeOff, Loader2, User, Phone, Briefcase, ShieldCheck, ArrowRight } from "lucide-react";
+import { Building2, Mail, Lock, Eye, EyeOff, Loader2, User, Phone, Briefcase, ShieldCheck, ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -49,6 +49,8 @@ function LoginForm() {
   const [regLicense, setRegLicense] = useState("");
   const [regPassword, setRegPassword] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [regStep, setRegStep] = useState(0);
+  const [regDirection, setRegDirection] = useState(1);
 
   const supabase = createClient();
 
@@ -275,7 +277,7 @@ function LoginForm() {
             ].map((tab) => (
               <button
                 key={tab.value}
-                onClick={() => { setActiveTab(tab.value); setError(null); setSuccess(null); }}
+                onClick={() => { setActiveTab(tab.value); setError(null); setSuccess(null); setRegStep(0); }}
                 className="relative flex-1 rounded-xl py-3 text-center text-sm font-semibold transition-colors"
               >
                 {activeTab === tab.value && (
@@ -390,171 +392,250 @@ function LoginForm() {
                 </motion.div>
               </motion.form>
             ) : (
-              <motion.form
+              <motion.div
                 key="register"
-                onSubmit={handleRegister}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="space-y-4"
               >
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="reg-name" className="text-sm font-medium">Nombre completo</Label>
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      id="reg-name"
-                      placeholder="Juan Pérez"
-                      className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                      value={regName}
-                      onChange={(e) => setRegName(e.target.value)}
-                      required
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="reg-email" className="text-sm font-medium">Email</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      id="reg-email"
-                      type="email"
-                      placeholder="tu@email.com"
-                      className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                      value={regEmail}
-                      onChange={(e) => setRegEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="reg-phone" className="text-sm font-medium">Teléfono</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        id="reg-phone"
-                        type="tel"
-                        placeholder="+52 55 1234 5678"
-                        className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                        value={regPhone}
-                        onChange={(e) => setRegPhone(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="reg-company" className="text-sm font-medium">
-                      Empresa <span className="text-muted-foreground">(opcional)</span>
-                    </Label>
-                    <div className="relative">
-                      <Briefcase className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        id="reg-company"
-                        placeholder="Tu inmobiliaria"
-                        className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                        value={regCompany}
-                        onChange={(e) => setRegCompany(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="reg-license" className="text-sm font-medium">
-                    Número de licencia / cédula <span className="text-muted-foreground">(opcional)</span>
-                  </Label>
-                  <div className="relative">
-                    <ShieldCheck className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      id="reg-license"
-                      placeholder="Para verificación acelerada"
-                      className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                      value={regLicense}
-                      onChange={(e) => setRegLicense(e.target.value)}
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="reg-password" className="text-sm font-medium">Contraseña</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      id="reg-password"
-                      type="password"
-                      placeholder="Mínimo 8 caracteres"
-                      className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
-                      value={regPassword}
-                      onChange={(e) => setRegPassword(e.target.value)}
-                      required
-                      minLength={8}
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="flex items-start gap-3 pt-1">
-                  <Checkbox
-                    id="terms"
-                    className="mt-0.5"
-                    checked={acceptedTerms}
-                    onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
-                  />
-                  <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed">
-                    Acepto los{" "}
-                    <Link href="/terminos" className="text-gold-foreground hover:underline">
-                      términos y condiciones
-                    </Link>{" "}
-                    y la{" "}
-                    <Link href="/privacidad" className="text-gold-foreground hover:underline">
-                      política de privacidad
-                    </Link>
-                  </label>
-                </motion.div>
-
-                <motion.div variants={itemVariants}>
-                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      className="h-13 w-full gap-2 rounded-xl bg-gold-gradient text-base font-semibold text-white shadow-gold hover:opacity-90"
+                {/* Mini step indicator */}
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${regStep === 0 ? "bg-primary text-white" : "bg-gold text-white"}`}
+                      animate={{ scale: regStep === 0 ? 1.1 : 1 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 20 }}
                     >
-                      {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
-                      Crear Cuenta
-                    </Button>
-                  </motion.div>
-                </motion.div>
-
-                {/* Divider */}
-                <motion.div variants={itemVariants} className="relative py-1">
-                  <div className="h-[1px] w-full bg-border" />
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 text-sm text-muted-foreground">
-                    o regístrate con
-                  </span>
-                </motion.div>
-
-                <motion.div variants={itemVariants}>
-                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="h-13 w-full gap-3 rounded-xl text-base"
-                      onClick={handleGoogleAuth}
-                      disabled={loading}
+                      {regStep > 0 ? "✓" : "1"}
+                    </motion.div>
+                    <span className="text-sm font-medium text-foreground">Tus datos</span>
+                  </div>
+                  <div className="h-[2px] w-8 rounded-full bg-secondary">
+                    <motion.div
+                      className="h-full rounded-full bg-gold"
+                      initial={{ width: "0%" }}
+                      animate={{ width: regStep > 0 ? "100%" : "0%" }}
+                      transition={{ type: "spring" as const, stiffness: 200, damping: 25 }}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${regStep === 1 ? "bg-primary text-white" : "bg-secondary text-muted-foreground"}`}
+                      animate={{ scale: regStep === 1 ? 1.1 : 1 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 20 }}
                     >
-                      <svg className="h-5 w-5" viewBox="0 0 24 24">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                      </svg>
-                      Continuar con Google
-                    </Button>
-                  </motion.div>
-                </motion.div>
-              </motion.form>
+                      2
+                    </motion.div>
+                    <span className={`text-sm font-medium ${regStep === 1 ? "text-foreground" : "text-muted-foreground"}`}>Seguridad</span>
+                  </div>
+                </div>
+
+                <AnimatePresence mode="wait" custom={regDirection}>
+                  {regStep === 0 ? (
+                    <motion.div
+                      key="reg-step-0"
+                      custom={regDirection}
+                      initial={{ opacity: 0, x: regDirection > 0 ? 40 : -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: regDirection > 0 ? -40 : 40 }}
+                      transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
+                    >
+                      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-5">
+                        <motion.div variants={itemVariants} className="space-y-2">
+                          <Label htmlFor="reg-name" className="text-sm font-medium">Nombre completo</Label>
+                          <div className="relative">
+                            <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              id="reg-name"
+                              placeholder="Juan Pérez"
+                              className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                              value={regName}
+                              onChange={(e) => setRegName(e.target.value)}
+                            />
+                          </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="space-y-2">
+                          <Label htmlFor="reg-email" className="text-sm font-medium">Email</Label>
+                          <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              id="reg-email"
+                              type="email"
+                              placeholder="tu@email.com"
+                              className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                              value={regEmail}
+                              onChange={(e) => setRegEmail(e.target.value)}
+                            />
+                          </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="reg-phone" className="text-sm font-medium">Teléfono</Label>
+                            <div className="relative">
+                              <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                              <Input
+                                id="reg-phone"
+                                type="tel"
+                                placeholder="+52 55 1234 5678"
+                                className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                                value={regPhone}
+                                onChange={(e) => setRegPhone(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="reg-company" className="text-sm font-medium">
+                              Empresa <span className="text-muted-foreground">(opcional)</span>
+                            </Label>
+                            <div className="relative">
+                              <Briefcase className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                              <Input
+                                id="reg-company"
+                                placeholder="Tu inmobiliaria"
+                                className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                                value={regCompany}
+                                onChange={(e) => setRegCompany(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants}>
+                          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
+                            <Button
+                              type="button"
+                              disabled={!regName || !regEmail}
+                              onClick={() => { setRegDirection(1); setRegStep(1); }}
+                              className="h-13 w-full gap-2 rounded-xl bg-gold-gradient text-base font-semibold text-white shadow-gold hover:opacity-90"
+                            >
+                              Siguiente
+                              <ArrowRight className="h-5 w-5" />
+                            </Button>
+                          </motion.div>
+                        </motion.div>
+
+                        {/* Divider */}
+                        <motion.div variants={itemVariants} className="relative py-1">
+                          <div className="h-[1px] w-full bg-border" />
+                          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 text-sm text-muted-foreground">
+                            o regístrate con
+                          </span>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants}>
+                          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              className="h-13 w-full gap-3 rounded-xl text-base"
+                              onClick={handleGoogleAuth}
+                              disabled={loading}
+                            >
+                              <svg className="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                              </svg>
+                              Continuar con Google
+                            </Button>
+                          </motion.div>
+                        </motion.div>
+                      </motion.div>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="reg-step-1"
+                      custom={regDirection}
+                      initial={{ opacity: 0, x: regDirection > 0 ? 40 : -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: regDirection > 0 ? -40 : 40 }}
+                      transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
+                      onSubmit={handleRegister}
+                    >
+                      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-5">
+                        <motion.div variants={itemVariants} className="space-y-2">
+                          <Label htmlFor="reg-license" className="text-sm font-medium">
+                            Número de licencia / cédula <span className="text-muted-foreground">(opcional)</span>
+                          </Label>
+                          <div className="relative">
+                            <ShieldCheck className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              id="reg-license"
+                              placeholder="Para verificación acelerada"
+                              className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                              value={regLicense}
+                              onChange={(e) => setRegLicense(e.target.value)}
+                            />
+                          </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="space-y-2">
+                          <Label htmlFor="reg-password" className="text-sm font-medium">Contraseña</Label>
+                          <div className="relative">
+                            <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              id="reg-password"
+                              type="password"
+                              placeholder="Mínimo 8 caracteres"
+                              className="h-13 rounded-xl bg-secondary/40 pl-12 text-base"
+                              value={regPassword}
+                              onChange={(e) => setRegPassword(e.target.value)}
+                              required
+                              minLength={8}
+                            />
+                          </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="flex items-start gap-3 pt-1">
+                          <Checkbox
+                            id="terms"
+                            className="mt-0.5"
+                            checked={acceptedTerms}
+                            onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
+                          />
+                          <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed">
+                            Acepto los{" "}
+                            <Link href="/terminos" className="text-gold-foreground hover:underline">
+                              términos y condiciones
+                            </Link>{" "}
+                            y la{" "}
+                            <Link href="/privacidad" className="text-gold-foreground hover:underline">
+                              política de privacidad
+                            </Link>
+                          </label>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="flex gap-3">
+                          <motion.div whileHover={{ x: -2 }} whileTap={{ scale: 0.98 }}>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              onClick={() => { setRegDirection(-1); setRegStep(0); }}
+                              className="h-13 gap-2 rounded-xl text-base text-muted-foreground hover:text-foreground"
+                            >
+                              <ArrowLeft className="h-5 w-5" />
+                              Atrás
+                            </Button>
+                          </motion.div>
+                          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} className="flex-1">
+                            <Button
+                              type="submit"
+                              disabled={loading}
+                              className="h-13 w-full gap-2 rounded-xl bg-gold-gradient text-base font-semibold text-white shadow-gold hover:opacity-90"
+                            >
+                              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
+                              Crear Cuenta
+                            </Button>
+                          </motion.div>
+                        </motion.div>
+                      </motion.div>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             )}
           </AnimatePresence>
 
