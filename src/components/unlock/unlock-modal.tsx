@@ -13,6 +13,12 @@ import {
   Zap,
   Loader2,
   Sparkles,
+  Shield,
+  Clock,
+  TrendingUp,
+  Users,
+  CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -108,7 +114,7 @@ export function UnlockModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-lg">
         <AnimatePresence mode="wait">
           {/* CHECKING */}
           {state === "checking" && (
@@ -134,48 +140,139 @@ export function UnlockModal({
             >
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Lock className="h-4 w-4 text-gold" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gold/15">
+                    <Lock className="h-4 w-4 text-gold-foreground" />
+                  </div>
                   Desbloquear contacto
                 </DialogTitle>
                 <DialogDescription>
-                  Elige como quieres desbloquear el contacto de <span className="font-medium text-foreground">{targetBrokerName}</span>
+                  Conecta directamente con <span className="font-medium text-foreground">{targetBrokerName}</span> y cierra el trato
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {/* Social proof / urgency bar */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                className="mt-4 flex items-center gap-2 rounded-lg bg-amber-50/80 px-3 py-2"
+              >
+                <TrendingUp className="h-3.5 w-3.5 shrink-0 text-gold-foreground" />
+                <p className="text-[11px] text-gold-foreground">
+                  <span className="font-semibold">8 brokers</span> ya respondieron a esta solicitud. No pierdas la oportunidad.
+                </p>
+              </motion.div>
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {/* Per-unlock option */}
                 <button
                   onClick={() => handleUnlock("simulated")}
-                  className="group relative overflow-hidden rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-gold/50 hover:shadow-gold"
+                  className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-gold/50 hover:shadow-gold"
                 >
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15">
                     <Zap className="h-5 w-5 text-gold-foreground" />
                   </div>
                   <p className="text-sm font-semibold text-foreground">Desbloqueo individual</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Un solo contacto</p>
-                  <p className="mt-3 font-heading text-xl font-bold text-gold-foreground">$99 <span className="text-xs font-normal text-muted-foreground">MXN</span></p>
+                  <p className="mt-1 text-xs text-muted-foreground">Acceso inmediato a un contacto</p>
+
+                  <div className="mt-3 space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-accent" />
+                      <span>Telefono y email del broker</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-accent" />
+                      <span>Contacto directo sin intermediarios</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-accent" />
+                      <span>Pago unico, sin suscripcion</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <p className="font-heading text-2xl font-bold text-gold-foreground">
+                      $99 <span className="text-xs font-normal text-muted-foreground">MXN</span>
+                    </p>
+                    <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg bg-secondary py-2 text-xs font-semibold text-foreground transition-colors group-hover:bg-gold/15 group-hover:text-gold-foreground">
+                      Desbloquear ahora
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
+
                   <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-gold/5 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
                 </button>
 
-                {/* Pro plan option */}
+                {/* Pro plan option — highlighted */}
                 <a
                   href="/pricing"
-                  className="group relative overflow-hidden rounded-xl border-2 border-gold/40 bg-gradient-to-br from-amber-50/80 to-orange-50/30 p-4 text-left transition-all hover:border-gold/70 hover:shadow-gold"
+                  className="group relative flex flex-col overflow-hidden rounded-xl border-2 border-gold/40 bg-gradient-to-br from-amber-50/80 to-orange-50/30 p-4 text-left transition-all hover:border-gold/70 hover:shadow-gold"
                 >
                   <div className="absolute -top-px right-3">
                     <span className="rounded-b-lg bg-gold-gradient px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                      Popular
+                      Mejor valor
                     </span>
                   </div>
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gold-gradient">
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gold-gradient shadow-gold">
                     <Crown className="h-5 w-5 text-white" />
                   </div>
                   <p className="text-sm font-semibold text-foreground">Plan Pro</p>
-                  <p className="mt-1 text-xs text-muted-foreground">15 desbloqueos al mes</p>
-                  <p className="mt-3 font-heading text-xl font-bold text-gold-foreground">$499 <span className="text-xs font-normal text-muted-foreground">MXN/mes</span></p>
-                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
+                  <p className="mt-1 text-xs text-muted-foreground">Todo lo que necesitas para cerrar tratos</p>
+
+                  <div className="mt-3 space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-[11px] text-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-gold-foreground" />
+                      <span><span className="font-semibold">15 desbloqueos</span> incluidos al mes</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-gold-foreground" />
+                      <span>Analíticas avanzadas de match</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-gold-foreground" />
+                      <span>Prioridad en resultados de busqueda</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-foreground">
+                      <CheckCircle2 className="h-3 w-3 shrink-0 text-gold-foreground" />
+                      <span>Badge <span className="font-semibold text-gold-foreground">Pro</span> en tu perfil</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <div className="flex items-baseline gap-1.5">
+                      <p className="font-heading text-2xl font-bold text-gold-foreground">$499</p>
+                      <span className="text-xs text-muted-foreground">MXN/mes</span>
+                    </div>
+                    <p className="text-[10px] text-muted-foreground">
+                      Solo <span className="font-semibold text-accent">$33 por desbloqueo</span> — ahorra 67%
+                    </p>
+                    <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg bg-gold-gradient py-2 text-xs font-bold text-white shadow-gold transition-opacity group-hover:opacity-90">
+                      Ver Plan Pro
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 </a>
               </div>
+
+              {/* Trust signals */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.25 }}
+                className="mt-4 flex items-center justify-center gap-4 text-[10px] text-muted-foreground"
+              >
+                <span className="flex items-center gap-1">
+                  <Shield className="h-3 w-3" /> Pago seguro
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-3 w-3" /> Acceso inmediato
+                </span>
+                <span className="flex items-center gap-1">
+                  <Users className="h-3 w-3" /> +500 brokers activos
+                </span>
+              </motion.div>
             </motion.div>
           )}
 
