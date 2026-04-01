@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Building2,
   LayoutDashboard,
@@ -12,22 +12,46 @@ import {
   User,
   Plus,
   Crown,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/client";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/solicitudes", label: "Mis Solicitudes", icon: FileText },
   { href: "/explorar", label: "Explorar", icon: Search },
   { href: "/respuestas", label: "Mis Respuestas", icon: MessageSquare },
-  { href: "/notificaciones", label: "Notificaciones", icon: Bell, badge: 3 },
+  { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/perfil", label: "Perfil", icon: User },
 ];
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  userName: string;
+  userEmail: string;
+  avatarUrl?: string | null;
+  tier: string;
+}
+
+export function AppSidebar({ userName, userEmail, tier }: AppSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const initials = userName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+  }
 
   return (
     <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar">
@@ -64,22 +88,35 @@ export function AppSidebar() {
             >
               <item.icon className="h-4 w-4" />
               <span className="flex-1">{item.label}</span>
-              {item.badge && (
-                <Badge className="h-5 min-w-5 justify-center bg-urgent px-1.5 text-xs text-white">
-                  {item.badge}
-                </Badge>
-              )}
             </Link>
           );
         })}
       </nav>
 
-      {/* Plan indicator */}
-      <div className="border-t border-sidebar-border p-4">
+      {/* User + Plan */}
+      <div className="border-t border-sidebar-border p-4 space-y-3">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-8 w-8">
+            <AvatarFallback className="bg-primary/50 text-xs font-semibold">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium truncate">{userName}</p>
+            <p className="text-xs text-sidebar-foreground/50 truncate">{userEmail}</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="text-sidebar-foreground/40 hover:text-sidebar-foreground transition-colors"
+            title="Cerrar sesión"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
+        </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-sidebar-foreground/50">
             <Crown className="h-3.5 w-3.5" />
-            <span>Plan Free</span>
+            <span>Plan {tier === "free" ? "Free" : tier === "pro" ? "Pro" : "Enterprise"}</span>
           </div>
           <Link href="/pricing" className="text-xs text-gold hover:underline">
             Upgrade
