@@ -2,6 +2,11 @@
 
 import { createClient } from "@/utils/supabase/server";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isUUID(v?: string): boolean {
+  return !!v && UUID_RE.test(v);
+}
+
 const PLAN_LIMITS: Record<string, number> = {
   free: 1,
   pro: 15,
@@ -27,6 +32,34 @@ export async function checkUnlockStatus(
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) return { status: "error", message: "No autenticado" };
+
+  // Mock data — skip DB queries, go straight to plan check
+  if (!isUUID(targetBrokerId)) {
+    const { data: profile } = await supabase
+      .from("broker_profiles")
+      .select("subscription_tier")
+      .eq("id", user.id)
+      .single();
+
+    const tier = profile?.subscription_tier || "free";
+    const limit = PLAN_LIMITS[tier] ?? 1;
+
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const { count } = await supabase
+      .from("unlocks")
+      .select("*", { count: "exact", head: true })
+      .eq("requester_id", user.id)
+      .gte("created_at", startOfMonth.toISOString());
+
+    const used = count ?? 0;
+    if (used < limit) {
+      return { status: "has_plan_unlocks", remaining: limit - used };
+    }
+    return { status: "needs_payment", price: 99, currency: "MXN" };
+  }
 
   // Check if already unlocked
   let query = supabase
@@ -99,18 +132,34 @@ export async function processUnlock(
 
   const amount = paymentMethod === "plan_included" ? 0 : 99;
 
+  // Only pass valid UUIDs for FK columns (mock data uses non-UUID strings)
+  const validTargetId = isUUID(targetBrokerId) ? targetBrokerId : null;
+  const validRespuestaId = isUUID(respuestaId) ? respuestaId : null;
+  const validSolicitudId = isUUID(solicitudId) ? solicitudId : null;
+
+  if (!validTargetId) {
+    // Mock data — simulate success without DB insert
+    return {
+      status: "success",
+      phone: "+52 55 1234 5678",
+      email: null,
+      name: "Broker (demo)",
+    };
+  }
+
   // Insert unlock record
   const { error: insertError } = await supabase.from("unlocks").insert({
     requester_id: user.id,
-    target_id: targetBrokerId,
-    respuesta_id: respuestaId || null,
-    solicitud_id: solicitudId || null,
+    target_id: validTargetId,
+    respuesta_id: validRespuestaId,
+    solicitud_id: validSolicitudId,
     amount,
     currency: "MXN",
     payment_method: paymentMethod,
   });
 
   if (insertError) {
+    console.error("Unlock insert error:", insertError);
     return { status: "error", message: "Error al procesar el desbloqueo" };
   }
 
@@ -118,16 +167,16 @@ export async function processUnlock(
   const { data: target } = await supabase
     .from("broker_profiles")
     .select("full_name, phone")
-    .eq("id", targetBrokerId)
+    .eq("id", validTargetId)
     .single();
 
   // Create notification for the target broker
   await supabase.from("notifications").insert({
-    user_id: targetBrokerId,
+    user_id: validTargetId,
     type: "unlock",
     title: "Contacto desbloqueado",
-    body: `Un broker ha desbloqueado tu contacto`,
-    data: { requester_id: user.id, solicitud_id: solicitudId },
+    body: "Un broker ha desbloqueado tu contacto",
+    data: { requester_id: user.id, solicitud_id: validSolicitudId },
     read: false,
   });
 
