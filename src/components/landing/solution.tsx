@@ -6,38 +6,40 @@ const cards = [
     title: "Match inteligente",
     description:
       "Algoritmo que calcula compatibilidad automática entre solicitud y oferta. Solo ves lo relevante.",
-    color: "text-gold bg-gold/10",
+    color: "text-gold border-gold/20 bg-gold/5",
   },
   {
     icon: ShieldCheck,
     title: "Solo brokers verificados",
     description:
       "Cada broker pasa por verificación. Sin compradores directos, sin curiosos, sin spam.",
-    color: "text-success bg-success/10",
+    color: "text-success border-success/20 bg-success/5",
   },
   {
     icon: FileSearch,
     title: "Solicitudes, no listados",
     description:
       "Aquí se publica lo que el cliente busca, no un catálogo infinito de propiedades sin contexto.",
-    color: "text-[#60A5FA] bg-[#60A5FA]/10",
+    color: "text-[#60A5FA] border-[#60A5FA]/20 bg-[#60A5FA]/5",
   },
   {
     icon: Coins,
     title: "Paga solo por resultados",
     description:
       "Publicar y responder es gratis. Solo pagas cuando quieres desbloquear el contacto de un match real.",
-    color: "text-gold bg-gold/10",
+    color: "text-[#A78BFA] border-[#A78BFA]/20 bg-[#A78BFA]/5",
   },
 ];
 
 export function Solution() {
   return (
-    <section id="solucion" className="py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="solucion" className="relative py-20 md:py-28">
+      <div className="absolute inset-0 bg-dots opacity-30" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-success">
-            La solución
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-success">
+            // La solución
           </p>
           <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">
             Tu red privada de oportunidades
@@ -52,19 +54,20 @@ export function Solution() {
           {cards.map((card) => (
             <div
               key={card.title}
-              className="rounded-xl border border-border/50 bg-card/50 p-8 transition-all hover:border-gold/20 hover:bg-card"
+              className="group rounded-xl border border-border bg-card p-8 transition-all hover:border-gold/15 relative overflow-hidden"
             >
-              <div
-                className={`inline-flex h-12 w-12 items-center justify-center rounded-lg ${card.color}`}
-              >
-                <card.icon className="h-6 w-6" />
+              <div className="absolute inset-0 bg-grid-sm opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg border ${card.color}`}>
+                  <card.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-5 font-heading text-lg font-semibold">
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {card.description}
+                </p>
               </div>
-              <h3 className="mt-5 font-heading text-lg font-semibold">
-                {card.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {card.description}
-              </p>
             </div>
           ))}
         </div>

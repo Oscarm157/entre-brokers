@@ -30,11 +30,13 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative py-20 md:py-28">
+      <div className="absolute inset-0 bg-grid opacity-15" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-gold">
-            Testimonios
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+            // Testimonios
           </p>
           <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">
             Brokers que ya conectan diferente
@@ -45,28 +47,26 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="rounded-xl border border-border/50 bg-card/50 p-8"
+              className="rounded-xl border border-border bg-card p-8 relative overflow-hidden"
             >
-              <div className="flex gap-1">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+              <div className="flex gap-0.5">
                 {Array.from({ length: t.stars }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-gold text-gold"
-                  />
+                  <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />
                 ))}
               </div>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <Avatar className="h-10 w-10 border border-border/50">
-                  <AvatarFallback className="bg-primary/50 text-xs font-semibold">
+                <Avatar className="h-9 w-9 border border-border">
+                  <AvatarFallback className="bg-card text-[10px] font-mono font-semibold text-gold">
                     {t.initials}
                   </AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="text-sm font-semibold">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                  <p className="font-mono text-[10px] text-muted-foreground">{t.role}</p>
                 </div>
               </div>
             </div>
