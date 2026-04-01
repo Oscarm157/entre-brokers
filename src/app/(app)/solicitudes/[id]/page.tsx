@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
   ShieldCheck,
@@ -19,10 +20,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { use } from "react";
+import { UnlockModal } from "@/components/unlock/unlock-modal";
+import { ContactInfoBadge } from "@/components/unlock/contact-info-badge";
 
 const solicitud = {
   id: "1",
-  title: "Departamento en Polanco, 2-3 recámaras",
+  title: "Departamento en Polanco, 2-3 recamaras",
   operation: "Compra",
   urgency: "Alta",
   zone: "Polanco",
@@ -35,8 +38,8 @@ const solicitud = {
   bathrooms: 2,
   features: ["Estacionamiento", "Seguridad 24h", "Amenidades"],
   description:
-    "Mi cliente busca un departamento moderno en la zona de Polanco, de preferencia cerca de Masaryk. Necesita mínimo 2 recámaras (ideal 3), estacionamiento incluido y seguridad. Tiene preaprobación bancaria y puede cerrar en máximo 45 días.",
-  broker: { name: "María González", company: "Century 21 Polanco", initials: "MG", verified: true },
+    "Mi cliente busca un departamento moderno en la zona de Polanco, de preferencia cerca de Masaryk. Necesita minimo 2 recamaras (ideal 3), estacionamiento incluido y seguridad. Tiene preaprobacion bancaria y puede cerrar en maximo 45 dias.",
+  broker: { name: "Maria Gonzalez", company: "Century 21 Polanco", initials: "MG", verified: true },
   created: "15 Mar 2026",
   expires: "14 Abr 2026",
   responses: 8,
@@ -45,7 +48,8 @@ const solicitud = {
 const respuestas = [
   {
     id: "r1",
-    broker: { name: "Carlos Ramírez", initials: "CR", verified: true },
+    brokerId: "broker-cr-001",
+    broker: { name: "Carlos Ramirez", initials: "CR", verified: true },
     zone: "Polanco",
     price: 2800000,
     area: 95,
@@ -53,10 +57,11 @@ const respuestas = [
     bathrooms: 2,
     match: 92,
     status: "pending",
-    description: "Depa recién remodelado en Homero, 2 rec + estudio, vista a parque.",
+    description: "Depa recien remodelado en Homero, 2 rec + estudio, vista a parque.",
   },
   {
     id: "r2",
+    brokerId: "broker-at-002",
     broker: { name: "Ana Torres", initials: "AT", verified: true },
     zone: "Polanco",
     price: 3200000,
@@ -65,10 +70,11 @@ const respuestas = [
     bathrooms: 2,
     match: 85,
     status: "interested",
-    description: "3 recámaras en Campos Elíseos, amenidades completas, listo para escriturar.",
+    description: "3 recamaras en Campos Eliseos, amenidades completas, listo para escriturar.",
   },
   {
     id: "r3",
+    brokerId: "broker-rm-003",
     broker: { name: "Roberto Mendoza", initials: "RM", verified: false },
     zone: "Polanco",
     price: 2500000,
@@ -77,7 +83,7 @@ const respuestas = [
     bathrooms: 1,
     match: 71,
     status: "pending",
-    description: "2 rec en Horacio, piso 8, buena luz. Solo 1 baño pero precio competitivo.",
+    description: "2 rec en Horacio, piso 8, buena luz. Solo 1 bano pero precio competitivo.",
   },
 ];
 
@@ -115,6 +121,21 @@ export default function SolicitudDetailPage({
 }) {
   const { id } = use(params);
   const urgency = urgencyStyles[solicitud.urgency] || urgencyStyles.Normal;
+
+  const [unlockModalOpen, setUnlockModalOpen] = useState(false);
+  const [selectedRespuesta, setSelectedRespuesta] = useState<typeof respuestas[0] | null>(null);
+  const [unlockedContacts, setUnlockedContacts] = useState<Record<string, { phone: string | null; email: string | null }>>({});
+
+  function handleUnlockClick(r: typeof respuestas[0]) {
+    setSelectedRespuesta(r);
+    setUnlockModalOpen(true);
+  }
+
+  function handleUnlocked(contact: { phone: string | null; email: string | null }) {
+    if (selectedRespuesta) {
+      setUnlockedContacts((prev) => ({ ...prev, [selectedRespuesta.id]: contact }));
+    }
+  }
 
   return (
     <div>
@@ -182,7 +203,7 @@ export default function SolicitudDetailPage({
           {[
             { icon: DollarSign, label: "Presupuesto", value: `${formatCurrency(solicitud.budget_min)} – ${formatCurrency(solicitud.budget_max)}`, color: "text-gold-foreground", bg: "bg-gold/10" },
             { icon: Maximize2, label: "Superficie", value: `${solicitud.min_m2} – ${solicitud.max_m2} m²`, color: "text-indigo-500", bg: "bg-indigo-500/10" },
-            { icon: BedDouble, label: "Recámaras / Baños", value: `${solicitud.bedrooms} rec · ${solicitud.bathrooms} baños`, color: "text-purple-500", bg: "bg-purple-500/10" },
+            { icon: BedDouble, label: "Recamaras / Banos", value: `${solicitud.bedrooms} rec · ${solicitud.bathrooms} banos`, color: "text-purple-500", bg: "bg-purple-500/10" },
             { icon: Calendar, label: "Vigencia", value: `${solicitud.created} — ${solicitud.expires}`, color: "text-muted-foreground", bg: "bg-secondary" },
           ].map((detail) => (
             <div key={detail.label} className="rounded-xl bg-secondary/30 p-4">
@@ -234,6 +255,8 @@ export default function SolicitudDetailPage({
         >
           {respuestas.map((r) => {
             const colors = matchColor(r.match);
+            const isUnlocked = r.id in unlockedContacts;
+
             return (
               <motion.div
                 key={r.id}
@@ -282,19 +305,29 @@ export default function SolicitudDetailPage({
                         <BedDouble className="h-3.5 w-3.5" /> {r.bedrooms} rec
                       </span>
                       <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Bath className="h-3.5 w-3.5" /> {r.bathrooms} baños
+                        <Bath className="h-3.5 w-3.5" /> {r.bathrooms} banos
                       </span>
                     </div>
                   </div>
 
                   {/* Actions */}
                   <div className="flex shrink-0 flex-col items-end gap-3">
-                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                      <Button className="h-10 gap-2 rounded-xl bg-gold-gradient px-6 text-sm font-semibold text-white shadow-gold hover:opacity-90">
-                        <Lock className="h-4 w-4" />
-                        Desbloquear
-                      </Button>
-                    </motion.div>
+                    {isUnlocked ? (
+                      <ContactInfoBadge
+                        phone={unlockedContacts[r.id].phone}
+                        email={unlockedContacts[r.id].email}
+                      />
+                    ) : (
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                        <Button
+                          onClick={() => handleUnlockClick(r)}
+                          className="h-10 gap-2 rounded-xl bg-gold-gradient px-6 text-sm font-semibold text-white shadow-gold hover:opacity-90"
+                        >
+                          <Lock className="h-4 w-4" />
+                          Desbloquear
+                        </Button>
+                      </motion.div>
+                    )}
                     <div className="flex gap-1">
                       <Button variant="ghost" size="sm" className="gap-1.5 text-sm text-accent hover:text-accent">
                         <ThumbsUp className="h-4 w-4" /> Interesa
@@ -313,6 +346,19 @@ export default function SolicitudDetailPage({
           })}
         </motion.div>
       </motion.div>
+
+      {/* Unlock Modal */}
+      {selectedRespuesta && (
+        <UnlockModal
+          open={unlockModalOpen}
+          onOpenChange={setUnlockModalOpen}
+          targetBrokerId={selectedRespuesta.brokerId}
+          targetBrokerName={selectedRespuesta.broker.name}
+          respuestaId={selectedRespuesta.id}
+          solicitudId={solicitud.id}
+          onUnlocked={handleUnlocked}
+        />
+      )}
     </div>
   );
 }
