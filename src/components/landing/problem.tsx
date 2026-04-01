@@ -1,4 +1,14 @@
+"use client";
+
+import { motion } from "motion/react";
 import { MessageSquare, Ban, Clock, ShieldAlert } from "lucide-react";
+import {
+  staggerContainer,
+  cardVariants,
+  slideFromLeft,
+  slideFromRight,
+  viewportOnce,
+} from "./motion-utils";
 
 const problems = [
   { icon: MessageSquare, text: "Grupos de WhatsApp saturados de spam" },
@@ -9,10 +19,18 @@ const problems = [
 
 export function Problem() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative py-20 md:py-28 overflow-hidden">
+      {/* Atmospheric blob */}
+      <div className="absolute top-1/3 right-0 h-[300px] w-[300px] rounded-full bg-gold/5 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
+          <motion.div
+            variants={slideFromLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >
             <p className="text-sm font-semibold uppercase tracking-wider text-urgent">
               El problema
             </p>
@@ -25,25 +43,37 @@ export function Problem() {
               trazabilidad.
             </p>
 
-            <div className="mt-8 space-y-4">
+            <motion.div
+              className="mt-8 space-y-4"
+              variants={staggerContainer(0.08)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+            >
               {problems.map((p) => (
-                <div key={p.text} className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-50 border border-red-100">
+                <motion.div key={p.text} className="flex items-start gap-3" variants={cardVariants}>
+                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-50">
                     <p.icon className="h-4 w-4 text-red-500" />
                   </div>
-                  <p className="text-sm text-muted-foreground">{p.text}</p>
-                </div>
+                  <p className="text-base text-muted-foreground">{p.text}</p>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Comparison */}
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-red-100 bg-red-50/50 p-5">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-red-400">
+          <motion.div
+            className="space-y-4"
+            variants={slideFromRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >
+            <div className="rounded-2xl bg-red-50/50 p-5 shadow-card">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-red-400">
                 Así se ve hoy
               </p>
-              <div className="space-y-2 text-xs text-muted-foreground">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 <p className="rounded-lg bg-white p-2.5 shadow-sm">
                   Tengo depa en Polanco 2rec $2.8M interesados???
                 </p>
@@ -62,11 +92,11 @@ export function Problem() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-teal-100 bg-teal-50/50 p-5">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-success">
+            <div className="rounded-2xl bg-teal-50/50 p-5 shadow-card">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-success">
                 Así se ve con entre-brokers
               </p>
-              <div className="space-y-2 text-xs">
+              <div className="space-y-2 text-sm">
                 <div className="flex items-center justify-between rounded-lg bg-white p-2.5 shadow-sm">
                   <span className="text-primary">Depa Polanco 2-3 rec · $2M-$3.5M</span>
                   <span className="font-bold text-success">92% match</span>
@@ -81,7 +111,7 @@ export function Problem() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

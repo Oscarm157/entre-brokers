@@ -1,4 +1,13 @@
+"use client";
+
+import { motion } from "motion/react";
 import { Check, X } from "lucide-react";
+import {
+  sectionVariants,
+  staggerContainer,
+  cardVariants,
+  viewportOnce,
+} from "./motion-utils";
 
 const comparison = [
   { feature: "Usuarios", portal: "Compradores directos + brokers", eb: "Solo brokers verificados" },
@@ -11,9 +20,15 @@ const comparison = [
 
 export function Differentiator() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-white to-secondary/30">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div
+          className="mx-auto max-w-2xl text-center"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
           <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
             Diferenciador
           </p>
@@ -24,42 +39,56 @@ export function Differentiator() {
             Mientras otros listan propiedades para el público general, nosotros
             conectamos oportunidades reales entre profesionales.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mx-auto mt-16 max-w-3xl overflow-hidden rounded-2xl border border-border bg-white shadow-card">
-          <div className="grid grid-cols-3 border-b border-border bg-secondary/50">
+        <motion.div
+          className="mx-auto mt-16 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-card-hover"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
+          <div className="grid grid-cols-3 bg-secondary/60">
             <div className="p-4" />
-            <div className="border-l border-border p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="p-4 text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Portal tradicional
               </p>
             </div>
-            <div className="border-l border-amber-200 bg-amber-50/50 p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-wider text-gold-foreground">
+            <div className="bg-amber-50/50 p-4 text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
                 entre-brokers
               </p>
             </div>
           </div>
 
-          {comparison.map((row, i) => (
-            <div
-              key={row.feature}
-              className={`grid grid-cols-3 ${i < comparison.length - 1 ? "border-b border-border" : ""}`}
-            >
-              <div className="p-4">
-                <p className="text-sm font-medium text-primary">{row.feature}</p>
-              </div>
-              <div className="flex items-center gap-2 border-l border-border p-4">
-                <X className="h-3.5 w-3.5 shrink-0 text-red-300" />
-                <p className="text-xs text-muted-foreground">{row.portal}</p>
-              </div>
-              <div className="flex items-center gap-2 border-l border-amber-200 bg-amber-50/30 p-4">
-                <Check className="h-3.5 w-3.5 shrink-0 text-success" />
-                <p className="text-xs text-primary">{row.eb}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+          <motion.div
+            variants={staggerContainer(0.06)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >
+            {comparison.map((row, i) => (
+              <motion.div
+                key={row.feature}
+                variants={cardVariants}
+                className={`grid grid-cols-3 ${i % 2 === 0 ? "bg-white" : "bg-secondary/30"}`}
+              >
+                <div className="p-4">
+                  <p className="text-sm font-medium text-primary">{row.feature}</p>
+                </div>
+                <div className="flex items-center gap-2 p-4">
+                  <X className="h-3.5 w-3.5 shrink-0 text-red-300" />
+                  <p className="text-sm text-muted-foreground">{row.portal}</p>
+                </div>
+                <div className="flex items-center gap-2 bg-amber-50/30 p-4">
+                  <Check className="h-3.5 w-3.5 shrink-0 text-success" />
+                  <p className="text-sm text-primary">{row.eb}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

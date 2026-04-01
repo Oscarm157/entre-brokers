@@ -1,4 +1,8 @@
+"use client";
+
+import { motion } from "motion/react";
 import { Check } from "lucide-react";
+import { sectionVariants, cardHover, viewportOnce } from "./motion-utils";
 
 const items = [
   { action: "Publicar solicitudes", price: "Gratis", highlight: false },
@@ -8,11 +12,41 @@ const items = [
   { action: "Desbloquear contacto", price: "Desde $99 MXN", highlight: true },
 ];
 
+const scaleUp = {
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 200, damping: 28 },
+  },
+};
+
+const itemStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.2 } },
+};
+
+const itemFade = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 24 },
+  },
+};
+
 export function Pricing() {
   return (
     <section id="precios" className="py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div
+          className="mx-auto max-w-2xl text-center"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
           <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
             Transparencia total
           </p>
@@ -22,23 +56,37 @@ export function Pricing() {
           <p className="mt-4 text-muted-foreground">
             Sin suscripciones obligatorias. Sin cargos ocultos.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mx-auto mt-16 max-w-lg">
-          <div className="rounded-2xl border border-amber-200 bg-white overflow-hidden shadow-card-hover">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200 px-8 py-5 text-center">
+          <motion.div
+            variants={scaleUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            whileHover={cardHover}
+            className="rounded-2xl bg-white overflow-hidden shadow-card-hover"
+          >
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 px-8 py-5 text-center">
               <p className="font-heading text-lg font-semibold text-gold-foreground">
                 Modelo transparente
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">Usa la plataforma gratis, paga por resultados</p>
+              <p className="mt-1 text-sm text-muted-foreground">Usa la plataforma gratis, paga por resultados</p>
             </div>
-            <div className="p-8 space-y-3">
+            <motion.div
+              className="p-8 space-y-3"
+              variants={itemStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+            >
               {items.map((item) => (
-                <div
+                <motion.div
                   key={item.action}
+                  variants={itemFade}
                   className={`flex items-center justify-between rounded-xl p-3.5 ${
                     item.highlight
-                      ? "bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200"
+                      ? "bg-gradient-to-r from-amber-50 to-orange-50"
                       : "bg-secondary/50"
                   }`}
                 >
@@ -49,15 +97,15 @@ export function Pricing() {
                   <span className={`text-sm font-semibold ${item.highlight ? "text-gold-foreground" : "text-success"}`}>
                     {item.price}
                   </span>
-                </div>
+                </motion.div>
               ))}
-            </div>
-            <div className="border-t border-border px-8 py-4 text-center">
+            </motion.div>
+            <div className="bg-secondary/30 px-8 py-4 text-center">
               <p className="text-xs text-muted-foreground">
                 Próximamente planes Pro y Enterprise con desbloqueos incluidos
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
