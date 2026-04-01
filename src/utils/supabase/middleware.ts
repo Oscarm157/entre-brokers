@@ -5,6 +5,15 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
 export const updateSession = async (request: NextRequest) => {
+  // If there's a code param, redirect to auth callback to exchange it
+  const code = request.nextUrl.searchParams.get("code");
+  if (code && !request.nextUrl.pathname.startsWith("/auth/callback")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/callback";
+    // Keep the code param
+    return NextResponse.redirect(url);
+  }
+
   let supabaseResponse = NextResponse.next({
     request: {
       headers: request.headers,
@@ -40,7 +49,7 @@ export const updateSession = async (request: NextRequest) => {
   } = await supabase.auth.getUser();
 
   // Protected routes
-  const protectedPaths = ["/dashboard", "/solicitudes", "/perfil", "/notificaciones"];
+  const protectedPaths = ["/dashboard", "/solicitudes", "/perfil", "/notificaciones", "/explorar", "/respuestas", "/pricing"];
   const isProtected = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
