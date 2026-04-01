@@ -15,16 +15,19 @@ const TOTAL_STEPS = 4;
 
 const stepVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 80 : -80,
+    x: direction > 0 ? 60 : -60,
     opacity: 0,
+    filter: "blur(4px)",
   }),
   center: {
     x: 0,
     opacity: 1,
+    filter: "blur(0px)",
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? -80 : 80,
+    x: direction > 0 ? -60 : 60,
     opacity: 0,
+    filter: "blur(4px)",
   }),
 };
 
@@ -67,17 +70,17 @@ export function WizardShell({ form }: WizardShellProps) {
   const canProceed = form.canAdvance(currentStep);
 
   return (
-    <div className="mt-8">
+    <div className="mt-10">
       <AnimatedProgress currentStep={currentStep} />
 
       {/* Error banner */}
       <AnimatePresence>
         {form.error && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mb-6 overflow-hidden rounded-lg border border-urgent/30 bg-urgent/10 px-4 py-3 text-sm text-urgent"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="mb-8 rounded-2xl bg-urgent/8 px-5 py-4 text-sm text-urgent"
           >
             {form.error}
           </motion.div>
@@ -85,7 +88,7 @@ export function WizardShell({ form }: WizardShellProps) {
       </AnimatePresence>
 
       {/* Step content */}
-      <div className="relative min-h-[320px]">
+      <div className="relative min-h-[380px]">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentStep}
@@ -102,15 +105,27 @@ export function WizardShell({ form }: WizardShellProps) {
       </div>
 
       {/* Navigation */}
-      <div className="mt-10 flex items-center justify-between border-t border-border pt-6 pb-8">
+      <motion.div
+        className="mt-12 flex items-center justify-between pb-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
         <div>
-          {currentStep > 0 && (
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              <Button type="button" variant="outline" onClick={goBack}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
+          {currentStep > 0 ? (
+            <motion.div whileHover={{ x: -3 }} whileTap={{ scale: 0.97 }}>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={goBack}
+                className="gap-2 text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="h-4 w-4" />
                 Atrás
               </Button>
             </motion.div>
+          ) : (
+            <div />
           )}
         </div>
         <div>
@@ -120,31 +135,31 @@ export function WizardShell({ form }: WizardShellProps) {
                 type="button"
                 disabled={!canProceed || form.loading}
                 onClick={form.handleSubmit}
-                className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold px-8"
+                className="h-12 gap-2 rounded-xl bg-gold-gradient px-10 text-base font-semibold text-white shadow-gold hover:opacity-90"
               >
                 {form.loading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
-                  <Send className="mr-2 h-4 w-4" />
+                  <Send className="h-4 w-4" />
                 )}
                 Publicar Solicitud
               </Button>
             </motion.div>
           ) : (
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={{ scale: 1.02, x: 3 }} whileTap={{ scale: 0.97 }}>
               <Button
                 type="button"
                 disabled={!canProceed}
                 onClick={goNext}
-                className="bg-gold-gradient text-white hover:opacity-90 shadow-gold font-semibold px-8"
+                className="h-12 gap-2 rounded-xl bg-gold-gradient px-10 text-base font-semibold text-white shadow-gold hover:opacity-90"
               >
                 Siguiente
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -7,12 +7,17 @@ export default function NuevaSolicitudPage() {
   const form = useSolicitudForm();
 
   return (
-    <div>
-      <div className="mb-2 text-xs text-muted-foreground">
+    <div className="mx-auto max-w-3xl">
+      {/* Breadcrumb */}
+      <div className="mb-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
         Dashboard &gt; Nueva Solicitud
       </div>
-      <h1 className="font-heading text-2xl font-bold">Nueva Solicitud</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
+
+      {/* Page header — editorial style */}
+      <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground">
+        Nueva Solicitud
+      </h1>
+      <p className="mt-2 text-base text-muted-foreground">
         Define lo que tu cliente busca. Brokers con inventario relevante podrán responderte.
       </p>
 

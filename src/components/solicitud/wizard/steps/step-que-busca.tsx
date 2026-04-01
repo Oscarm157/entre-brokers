@@ -7,17 +7,17 @@ import type { SolicitudForm } from "../use-solicitud-form";
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
 };
 
 const operationTypes = [
-  { value: "compra", label: "Compra", icon: ShoppingBag },
-  { value: "renta", label: "Renta", icon: Key },
+  { value: "compra", label: "Compra", description: "Tu cliente quiere adquirir", icon: ShoppingBag },
+  { value: "renta", label: "Renta", description: "Tu cliente busca rentar", icon: Key },
 ];
 
 const propertyTypes = [
@@ -38,37 +38,44 @@ export function StepQueBusca({ form }: StepQueBuscaProps) {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="space-y-8"
+      className="space-y-10"
     >
+      {/* Header */}
       <motion.div variants={itemVariants}>
-        <h2 className="font-heading text-xl font-bold text-foreground">
+        <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground">
           ¿Qué busca tu cliente?
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-2 text-base text-muted-foreground">
           Selecciona el tipo de operación y propiedad
         </p>
       </motion.div>
 
-      {/* Tipo de operación */}
-      <motion.div variants={itemVariants} className="space-y-3">
-        <label className="text-sm font-medium text-foreground">Tipo de operación</label>
-        <div className="grid grid-cols-2 gap-4">
+      {/* Tipo de operación — large cards */}
+      <motion.div variants={itemVariants} className="space-y-4">
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Operación
+        </span>
+        <div className="grid grid-cols-2 gap-5">
           {operationTypes.map((op) => (
             <SelectableCard
               key={op.value}
               icon={op.icon}
               label={op.label}
+              description={op.description}
               value={op.value}
               selected={form.operationType === op.value}
               onSelect={form.setOperationType}
+              size="large"
             />
           ))}
         </div>
       </motion.div>
 
       {/* Tipo de propiedad */}
-      <motion.div variants={itemVariants} className="space-y-3">
-        <label className="text-sm font-medium text-foreground">Tipo de propiedad</label>
+      <motion.div variants={itemVariants} className="space-y-4">
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Tipo de propiedad
+        </span>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {propertyTypes.map((pt) => (
             <SelectableCard
