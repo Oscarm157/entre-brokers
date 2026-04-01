@@ -13,12 +13,12 @@ const items = [
 ];
 
 const scaleUp = {
-  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  hidden: { opacity: 0, scale: 0.95, y: 24 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { type: "spring" as const, stiffness: 200, damping: 28 },
+    transition: { type: "spring" as const, stiffness: 180, damping: 24 },
   },
 };
 
@@ -38,8 +38,10 @@ const itemFade = {
 
 export function Pricing() {
   return (
-    <section id="precios" className="py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="precios" className="relative py-24 md:py-36 bg-white overflow-hidden">
+      <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-[#6366f1]/[0.03] blur-[150px]" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           className="mx-auto max-w-2xl text-center"
           variants={sectionVariants}
@@ -47,18 +49,18 @@ export function Pricing() {
           whileInView="visible"
           viewport={viewportOnce}
         >
-          <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Transparencia total
           </p>
-          <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-4xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl tracking-tight">
             Solo pagas cuando encuentras lo que buscas
           </h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-5 text-lg text-muted-foreground">
             Sin suscripciones obligatorias. Sin cargos ocultos.
           </p>
         </motion.div>
 
-        <div className="mx-auto mt-16 max-w-lg">
+        <div className="mx-auto mt-20 max-w-lg">
           <motion.div
             variants={scaleUp}
             initial="hidden"
@@ -67,14 +69,14 @@ export function Pricing() {
             whileHover={cardHover}
             className="rounded-2xl bg-white overflow-hidden shadow-card-hover"
           >
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 px-8 py-5 text-center">
-              <p className="font-heading text-lg font-semibold text-gold-foreground">
+            <div className="bg-gradient-to-r from-gold/10 to-gold/5 px-10 py-6 text-center">
+              <p className="font-heading text-xl font-semibold text-gold-foreground">
                 Modelo transparente
               </p>
               <p className="mt-1 text-sm text-muted-foreground">Usa la plataforma gratis, paga por resultados</p>
             </div>
             <motion.div
-              className="p-8 space-y-3"
+              className="p-10 space-y-3.5"
               variants={itemStagger}
               initial="hidden"
               whileInView="visible"
@@ -84,10 +86,10 @@ export function Pricing() {
                 <motion.div
                   key={item.action}
                   variants={itemFade}
-                  className={`flex items-center justify-between rounded-xl p-3.5 ${
+                  className={`flex items-center justify-between rounded-xl p-4 ${
                     item.highlight
-                      ? "bg-gradient-to-r from-amber-50 to-orange-50"
-                      : "bg-secondary/50"
+                      ? "bg-gradient-to-r from-gold/10 to-gold/5"
+                      : "bg-secondary/40"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -100,8 +102,8 @@ export function Pricing() {
                 </motion.div>
               ))}
             </motion.div>
-            <div className="bg-secondary/30 px-8 py-4 text-center">
-              <p className="text-xs text-muted-foreground">
+            <div className="bg-secondary/30 px-10 py-5 text-center">
+              <p className="text-sm text-muted-foreground">
                 Próximamente planes Pro y Enterprise con desbloqueos incluidos
               </p>
             </div>

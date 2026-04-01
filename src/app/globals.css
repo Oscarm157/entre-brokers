@@ -55,61 +55,82 @@
 }
 
 /* ══════════════════════════════════════
-   entre-brokers — LIGHT FRESH THEME
-   Based on Stitch screen b08251bf
+   entre-brokers — PREMIUM THEME
+   Luxury fintech + private club
    ══════════════════════════════════════ */
 :root {
-  --background: #fbf9f6;
-  --foreground: #1b1c1a;
+  --background: #fafaf8;
+  --foreground: #171717;
   --card: #ffffff;
-  --card-foreground: #1b1c1a;
+  --card-foreground: #171717;
   --popover: #ffffff;
-  --popover-foreground: #1b1c1a;
-  --primary: #131b2e;
+  --popover-foreground: #171717;
+  --primary: #0f172a;
   --primary-foreground: #ffffff;
-  --secondary: #f5f3f0;
-  --secondary-foreground: #1b1c1a;
-  --muted: #efeeeb;
-  --muted-foreground: #76777d;
+  --secondary: #f4f4f2;
+  --secondary-foreground: #171717;
+  --muted: #ebebea;
+  --muted-foreground: #6b7280;
   --accent: #0c9488;
   --accent-foreground: #ffffff;
-  --destructive: #ba1a1a;
-  --border: #e4e2df;
-  --input: #e4e2df;
-  --ring: #fcc355;
+  --destructive: #dc2626;
+  --border: #e5e5e3;
+  --input: #e5e5e3;
+  --ring: #d4a843;
   /* Brand */
-  --gold: #fcc355;
-  --gold-foreground: #7d5800;
+  --gold: #d4a843;
+  --gold-foreground: #92710a;
   --success: #0c9488;
   --success-foreground: #ffffff;
   --warning: #f59e0b;
   --urgent: #ef4444;
   --radius: 0.625rem;
   /* Chart */
-  --chart-1: #fcc355;
+  --chart-1: #d4a843;
   --chart-2: #0c9488;
   --chart-3: #6366f1;
-  --chart-4: #76777d;
-  --chart-5: #131b2e;
+  --chart-4: #6b7280;
+  --chart-5: #0f172a;
   /* Sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #1b1c1a;
-  --sidebar-primary: #fcc355;
-  --sidebar-primary-foreground: #7d5800;
-  --sidebar-accent: #fef9ee;
-  --sidebar-accent-foreground: #1b1c1a;
-  --sidebar-border: #efeeeb;
-  --sidebar-ring: #fcc355;
+  --sidebar-foreground: #171717;
+  --sidebar-primary: #d4a843;
+  --sidebar-primary-foreground: #92710a;
+  --sidebar-accent: #fdf8ed;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #ebebea;
+  --sidebar-ring: #d4a843;
+}
+
+/* ══════════ DARK SECTION TOKENS ══════════ */
+/* Used by hero and final CTA for dark backgrounds */
+.section-dark {
+  --dark-bg: #0a0f1c;
+  --dark-bg-elevated: #111827;
+  --dark-surface: rgba(255, 255, 255, 0.05);
+  --dark-surface-hover: rgba(255, 255, 255, 0.08);
+  --dark-border: rgba(255, 255, 255, 0.08);
+  --dark-text: #f1f5f9;
+  --dark-text-muted: #94a3b8;
+  --dark-text-subtle: #64748b;
 }
 
 /* ══════════ UTILITY CLASSES ══════════ */
 
-/* Subtle grid for tech feel on light backgrounds */
+/* Subtle grid for dark backgrounds */
+.bg-grid-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Subtle grid for light backgrounds */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
 }
 
 .bg-grid-sm {
@@ -120,41 +141,68 @@
 }
 
 .bg-dots {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Glass effect for navbar */
+/* Premium glass — light */
 .glass {
-  background: rgba(251, 249, 246, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(250, 250, 248, 0.85);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
 }
 
-/* Card shadow (editorial style from Stitch) */
+/* Premium glass — dark */
+.glass-dark {
+  background: rgba(10, 15, 28, 0.7);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+}
+
+/* ══════════ PREMIUM SHADOWS ══════════ */
 .shadow-card {
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.03);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 16px rgba(0, 0, 0, 0.03);
 }
 .shadow-card-hover {
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), 0 12px 40px rgba(15, 23, 42, 0.04);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 16px 48px rgba(0, 0, 0, 0.05);
 }
 .shadow-gold {
-  box-shadow: 0 4px 16px rgba(252, 195, 85, 0.2), 0 1px 4px rgba(252, 195, 85, 0.1);
+  box-shadow:
+    0 4px 20px rgba(212, 168, 67, 0.25),
+    0 1px 4px rgba(212, 168, 67, 0.15);
+}
+.shadow-dark-card {
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 16px 48px rgba(0, 0, 0, 0.2);
 }
 
-/* Gold gradient (from Stitch) */
+/* ══════════ PREMIUM GRADIENTS ══════════ */
 .bg-gold-gradient {
-  background: linear-gradient(135deg, #fcc355 0%, #fda92e 100%);
+  background: linear-gradient(135deg, #d4a843 0%, #c4922e 100%);
 }
 
-/* Animated gradient text — light mode friendly */
-.text-gradient-animated {
-  background: linear-gradient(90deg, #7d5800, #0c9488, #6366f1, #7d5800);
-  background-size: 300% 100%;
+.bg-dark-gradient {
+  background: linear-gradient(180deg, #0a0f1c 0%, #111827 100%);
+}
+
+/* Radial glow for dark hero */
+.bg-glow-gold {
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(212, 168, 67, 0.08) 0%, transparent 70%);
+}
+
+/* Animated gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #d4a843 0%, #f0d078 50%, #d4a843 100%);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 6s ease infinite;
+  animation: gradient-shift 4s ease infinite;
 }
 
 @keyframes gradient-shift {
@@ -164,7 +212,6 @@
 
 /* ══════════ GAMIFICATION ══════════ */
 
-/* Match ring — circular score with level colors */
 .match-ring {
   position: relative;
   display: flex;
@@ -173,10 +220,9 @@
   border-radius: 9999px;
 }
 
-/* Level colors by match % (applied via inline styles or classes) */
 .match-gold {
-  background: linear-gradient(135deg, rgba(252,195,85,0.15), rgba(253,169,46,0.1));
-  border: 2px solid #fcc355;
+  background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(196,146,46,0.1));
+  border: 2px solid #d4a843;
 }
 .match-teal {
   background: linear-gradient(135deg, rgba(12,148,136,0.1), rgba(107,216,203,0.08));
@@ -191,10 +237,23 @@
   border: 2px solid #c6c6cd;
 }
 
-/* Pulse for high matches */
+/* Dark variant match rings */
+.match-gold-dark {
+  background: linear-gradient(135deg, rgba(212,168,67,0.2), rgba(196,146,46,0.12));
+  border: 2px solid rgba(212,168,67,0.6);
+}
+.match-teal-dark {
+  background: linear-gradient(135deg, rgba(12,148,136,0.15), rgba(107,216,203,0.1));
+  border: 2px solid rgba(12,148,136,0.5);
+}
+.match-blue-dark {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(129,140,248,0.1));
+  border: 2px solid rgba(99,102,241,0.4);
+}
+
 @keyframes match-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 195, 85, 0.3); }
-  50% { box-shadow: 0 0 0 8px rgba(252, 195, 85, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(212, 168, 67, 0); }
 }
 .match-pulse {
   animation: match-pulse 2.5s ease-in-out infinite;
@@ -204,13 +263,13 @@
 .xp-bar {
   height: 6px;
   border-radius: 3px;
-  background: #efeeeb;
+  background: #ebebea;
   overflow: hidden;
 }
 .xp-bar-fill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #fcc355, #0c9488);
+  background: linear-gradient(90deg, #d4a843, #0c9488);
   transition: width 0.8s ease;
 }
 
@@ -227,8 +286,8 @@
 }
 .level-gold {
   background: linear-gradient(135deg, #fef3cd, #fde68a);
-  color: #7d5800;
-  border: 1px solid #fcc355;
+  color: #92710a;
+  border: 1px solid #d4a843;
 }
 .level-teal {
   background: linear-gradient(135deg, #ccfbf1, #99f6e4);
@@ -246,7 +305,7 @@
   display: inline-block;
 }
 
-/* Confetti sparkle for high match */
+/* Sparkle */
 @keyframes sparkle {
   0% { opacity: 0; transform: scale(0) rotate(0deg); }
   50% { opacity: 1; transform: scale(1) rotate(180deg); }

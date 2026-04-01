@@ -20,7 +20,7 @@ const comparison = [
 
 export function Differentiator() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-white to-secondary/30">
+    <section className="py-24 md:py-36 bg-gradient-to-b from-background to-secondary/40">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           className="mx-auto max-w-2xl text-center"
@@ -29,33 +29,33 @@ export function Differentiator() {
           whileInView="visible"
           viewport={viewportOnce}
         >
-          <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Diferenciador
           </p>
-          <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-4xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl tracking-tight">
             No somos un portal inmobiliario
           </h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-5 text-lg text-muted-foreground">
             Mientras otros listan propiedades para el público general, nosotros
             conectamos oportunidades reales entre profesionales.
           </p>
         </motion.div>
 
         <motion.div
-          className="mx-auto mt-16 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-card-hover"
+          className="mx-auto mt-20 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-card-hover"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
         >
-          <div className="grid grid-cols-3 bg-secondary/60">
-            <div className="p-4" />
-            <div className="p-4 text-center">
+          <div className="grid grid-cols-3 bg-secondary/50">
+            <div className="p-5" />
+            <div className="p-5 text-center">
               <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Portal tradicional
               </p>
             </div>
-            <div className="bg-amber-50/50 p-4 text-center">
+            <div className="bg-gold/8 p-5 text-center">
               <p className="text-sm font-semibold uppercase tracking-wider text-gold-foreground">
                 entre-brokers
               </p>
@@ -72,17 +72,17 @@ export function Differentiator() {
               <motion.div
                 key={row.feature}
                 variants={cardVariants}
-                className={`grid grid-cols-3 ${i % 2 === 0 ? "bg-white" : "bg-secondary/30"}`}
+                className={`grid grid-cols-3 ${i % 2 === 0 ? "bg-white" : "bg-secondary/25"}`}
               >
-                <div className="p-4">
+                <div className="p-5">
                   <p className="text-sm font-medium text-primary">{row.feature}</p>
                 </div>
-                <div className="flex items-center gap-2 p-4">
-                  <X className="h-3.5 w-3.5 shrink-0 text-red-300" />
+                <div className="flex items-center gap-2.5 p-5">
+                  <X className="h-4 w-4 shrink-0 text-red-300" />
                   <p className="text-sm text-muted-foreground">{row.portal}</p>
                 </div>
-                <div className="flex items-center gap-2 bg-amber-50/30 p-4">
-                  <Check className="h-3.5 w-3.5 shrink-0 text-success" />
+                <div className="flex items-center gap-2.5 bg-gold/[0.04] p-5">
+                  <Check className="h-4 w-4 shrink-0 text-success" />
                   <p className="text-sm text-primary">{row.eb}</p>
                 </div>
               </motion.div>
