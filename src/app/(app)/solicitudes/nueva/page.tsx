@@ -7,7 +7,7 @@ export default function NuevaSolicitudPage() {
   const form = useSolicitudForm();
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div>
       {/* Breadcrumb */}
       <div className="mb-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
         Dashboard &gt; Nueva Solicitud
